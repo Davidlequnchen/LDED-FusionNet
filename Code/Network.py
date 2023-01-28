@@ -5,9 +5,9 @@ Created on Wednesday 11 Jan 2023
 -- Author: Chen Lequn
 ---------------------------------------------------------------------
 FusionNet model
-(1) MultiModalVGG: VGG-ish CNN architecture, The feature extraction for image and audio signal are on separate branch stream, then fused
+(1) LateFusionCNN: The feature extraction for image and audio signal are on separate branch stream, then fused together
    --> also the so-called "late fusion"
-(2) 
+(2) EarlyFusionCNN: Image and Audio are fused in the initial layer. 
 """
 
 #%%
@@ -122,8 +122,6 @@ def initialize_weights(m):
 
 
 #%%
-
-
 def get_lr(optimizer):
     for param_group in optimizer.param_groups:
         print('Learning rate =')
@@ -144,4 +142,3 @@ def count_parameters(model):
     print(f"Total Trainable Params: {total_params}")
     return total_params
 
-#%%

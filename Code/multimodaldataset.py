@@ -102,7 +102,7 @@ if __name__ == "__main__":
     print(f"Using device {device}")
 
     img_transform = torchvision.transforms.Compose([
-            torchvision.transforms.Resize((320,240)), # original image size: (640,480)
+            torchvision.transforms.Resize((64,48)), # original image size: (640,480)
             torchvision.transforms.ToTensor(),
             torchvision.transforms.Normalize(mean=[136.0959286867722], std=[62.48771105649407]),
             # note that if resize is before normalization, need to re-calculate the mean and std; if resize is after normalize, could induce distortions
@@ -116,8 +116,7 @@ if __name__ == "__main__":
     # MFCCs = torchaudio.transforms.MFCC(sample_rate=SAMPLE_RATE,n_mfcc=13)
     # spectral_centroid = torchaudio.transforms.SpectralCentroid(sample_rate=SAMPLE_RATE, hop_length=256)
     
-                    
-
+                
     mmd = MultimodalDataset(ANNOTATIONS_FILE,
                             VISON_DIR,
                             AUDIO_DIR,
