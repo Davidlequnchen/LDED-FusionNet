@@ -102,23 +102,23 @@ class LDEDVisionDataset(Dataset):
         return path
 
     def _get_sample_label(self, index):
-        return self.annotations.iloc[index, 3]
+        return self.annotations.iloc[index, 6]
 
 
 class LDEDAudioDataset(Dataset):
     def __init__(self,
                  annotation_df,
                  audio_path,
-                 mel_spectrogram,
-                #  MFCCs,
+                #  mel_spectrogram,
+                 MFCCs,
                 #  spectral_centroid,
                  target_sample_rate,
                  device):
         self.annotations = annotation_df
         self.audio_dir = audio_path
         self.device = device
-        self.mel_spectrogram = mel_spectrogram.to(self.device)
-        # self.MFCCs = MFCCs.to(self.device)
+        # self.mel_spectrogram = mel_spectrogram.to(self.device)
+        self.MFCCs = MFCCs.to(self.device)
         # self.spectral_centroid = spectral_centroid.to(self.device)
         self.target_sample_rate = target_sample_rate
 
@@ -137,11 +137,11 @@ class LDEDAudioDataset(Dataset):
         # signal = self._right_pad_if_necessary(signal)
 
         # conduct the transformations
-        signal_mel_spectrogram = self.mel_spectrogram(audio_signal)
-        # signal_mfcc = self.MFCCs(audio_signal)
+        # signal_mel_spectrogram = self.mel_spectrogram(audio_signal)
+        signal_mfcc = self.MFCCs(audio_signal)
         # signal_spectral_centroid = self.spectral_centroid(audio_signal)
         
-        return signal_mel_spectrogram, label
+        return signal_mfcc, label
 
 
     def _get_audio_sample_path(self, index):
@@ -149,7 +149,7 @@ class LDEDAudioDataset(Dataset):
         return path
     
     def _get_sample_label(self, index):
-        return self.annotations.iloc[index, 3]
+        return self.annotations.iloc[index, 6]
 
 
 
@@ -163,7 +163,7 @@ if __name__ == "__main__":
     Audio_bandpassed_seg_PATH = os.path.join(Audio_segmented_30Hz_PATH, 'bandpassed')
     Audio_denoised_seg_PATH = os.path.join(Audio_segmented_30Hz_PATH, 'denoised')
 
-    ANNOTATIONS_FILE = os.path.join(Multimodal_dataset_PATH, "vision_acoustic_label.csv")
+    ANNOTATIONS_FILE = os.path.join(Multimodal_dataset_PATH, "vision_acoustic_label_v2.csv")
     annotation_df = pd.read_csv(ANNOTATIONS_FILE)
 
     ## select denoised audio signal
@@ -190,7 +190,7 @@ if __name__ == "__main__":
                                             hop_length=256,
                                             n_mels=32)
 
-    # MFCCs = torchaudio.transforms.MFCC(sample_rate=SAMPLE_RATE,n_mfcc=13)
+    MFCCs = torchaudio.transforms.MFCC(sample_rate=SAMPLE_RATE,n_mfcc=20)
     # spectral_centroid = torchaudio.transforms.SpectralCentroid(sample_rate=SAMPLE_RATE, hop_length=256)
     
                 
@@ -212,8 +212,8 @@ if __name__ == "__main__":
 
     audiodataset = LDEDAudioDataset(annotation_df,
                                     AUDIO_DIR,
-                                    mel_spectrogram,
-                                    # MFCCs,
+                                    # mel_spectrogram,
+                                    MFCCs,
                                     # spectral_centroid,
                                     SAMPLE_RATE,
                                     device)
