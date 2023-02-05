@@ -1,5 +1,6 @@
 import json
 import os
+import sys
 from typing import Callable, Dict
 
 from torch.utils.data import Dataset
@@ -11,6 +12,9 @@ import torch.utils.data
 import pandas as pd
 import torchaudio
 import torch.nn as nn
+import numpy as np
+
+
 
 
 class MultimodalDataset(Dataset):
@@ -19,8 +23,8 @@ class MultimodalDataset(Dataset):
                  image_path,
                  audio_path,
                  image_transformation,
-                 mel_spectrogram,
-                #  MFCCs,
+                #  mel_spectrogram,
+                 MFCCs,
                 #  spectral_centroid,
                  target_sample_rate,
                 #  num_samples,
@@ -31,8 +35,8 @@ class MultimodalDataset(Dataset):
         self.device = device
         # self.img_transform = nn.DataParallel(image_transformation) # parallelize the computation on multiple GPUs.
         self.img_transform = image_transformation
-        self.mel_spectrogram = mel_spectrogram.to(self.device)
-        # self.MFCCs = MFCCs.to(self.device)
+        # self.mel_spectrogram = mel_spectrogram.to(self.device)
+        self.MFCCs = MFCCs.to(self.device)
         # self.spectral_centroid = spectral_centroid.to(self.device)
         self.target_sample_rate = target_sample_rate
         # self.num_samples = num_samples
@@ -53,13 +57,15 @@ class MultimodalDataset(Dataset):
         # signal = self._right_pad_if_necessary(signal)
 
         image = PIL.Image.open(image_sample_path).convert('L')
+        # Convert PIL.Image object to PyTorch tensor
+        # image = torch.from_numpy(np.array(image))    
         image_transformed = self.img_transform(image)
         # conduct the transformations
-        signal_mel_spectrogram = self.mel_spectrogram(audio_signal)
-        # signal_mfcc = self.MFCCs(audio_signal)
+        # signal_mel_spectrogram = self.mel_spectrogram(audio_signal)
+        signal_mfcc = self.MFCCs(audio_signal)
         # signal_spectral_centroid = self.spectral_centroid(audio_signal)
-        
-        return image_transformed, signal_mel_spectrogram, label
+    
+        return (image_transformed, signal_mfcc), label
 
 
     def _get_audio_sample_path(self, index):
@@ -71,7 +77,7 @@ class MultimodalDataset(Dataset):
         return path
 
     def _get_sample_label(self, index):
-        return self.annotations.iloc[index, 3]
+        return self.annotations.iloc[index, 6]
 
 
 
@@ -198,8 +204,8 @@ if __name__ == "__main__":
                             VISON_DIR,
                             AUDIO_DIR,
                             img_transform,
-                            mel_spectrogram,
-                            # MFCCs,
+                            # mel_spectrogram,
+                            MFCCs,
                             # spectral_centroid,
                             SAMPLE_RATE,
                             # NUM_SAMPLES,
@@ -222,11 +228,11 @@ if __name__ == "__main__":
     print(f"There are {len(mmd)} samples in the multimodal dataset.")
     print(f"There are {len(visiondataset)} samples in the visiondataset dataset.")
     print(f"There are {len(audiodataset)} samples in the audiodataset dataset.")
-    image_input, audio_input, label = mmd[100]
+    multimodal_inputs, label = mmd[100]
     image_input_vision, label_vision = visiondataset[50]
     audio_input_audioset, label_audio = audiodataset[3000]
 
-    print (image_input.shape, audio_input.shape, label)
-    print (image_input_vision.shape, label_vision)
-    print (audio_input_audioset.shape, label_audio)
+    print (multimodal_inputs[0].shape, multimodal_inputs[1].shape, label)
+    # print (image_input_vision.shape, label_vision)
+    # print (audio_input_audioset.shape, label_audio)
 
