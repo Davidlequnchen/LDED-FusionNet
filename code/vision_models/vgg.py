@@ -12,10 +12,10 @@ cfg = {
 
 
 class VGG(nn.Module):
-    def __init__(self, vgg_name):
+    def __init__(self, vgg_name, num_class=3):
         super(VGG, self).__init__()
         self.features = self._make_layers(cfg[vgg_name])
-        self.classifier = nn.Linear(512, 2)
+        self.classifier = nn.Linear(512, num_class)
 
     def forward(self, x):
         out = self.features(x)
@@ -39,7 +39,7 @@ class VGG(nn.Module):
 
 
 def test():
-    net = VGG('VGG11')
+    net = VGG('VGG11', num_class=3)
     print (net)
     # vision
     summary(net.cuda(), [(1, 32, 32)]) # image set

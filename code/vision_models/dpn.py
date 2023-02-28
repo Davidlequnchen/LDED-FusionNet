@@ -2,7 +2,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
+from torchsummary import summary
 
 class Bottleneck(nn.Module):
     def __init__(self, last_planes, in_planes, out_planes, dense_depth, stride, first_layer):
@@ -36,19 +36,19 @@ class Bottleneck(nn.Module):
 
 
 class DPN(nn.Module):
-    def __init__(self, cfg):
+    def __init__(self, cfg, num_class=3):
         super(DPN, self).__init__()
         in_planes, out_planes = cfg['in_planes'], cfg['out_planes']
         num_blocks, dense_depth = cfg['num_blocks'], cfg['dense_depth']
 
-        self.conv1 = nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False)
+        self.conv1 = nn.Conv2d(1, 64, kernel_size=3, stride=1, padding=1, bias=False)
         self.bn1 = nn.BatchNorm2d(64)
         self.last_planes = 64
         self.layer1 = self._make_layer(in_planes[0], out_planes[0], num_blocks[0], dense_depth[0], stride=1)
         self.layer2 = self._make_layer(in_planes[1], out_planes[1], num_blocks[1], dense_depth[1], stride=2)
         self.layer3 = self._make_layer(in_planes[2], out_planes[2], num_blocks[2], dense_depth[2], stride=2)
         self.layer4 = self._make_layer(in_planes[3], out_planes[3], num_blocks[3], dense_depth[3], stride=2)
-        self.linear = nn.Linear(out_planes[3]+(num_blocks[3]+1)*dense_depth[3], 10)
+        self.linear = nn.Linear(out_planes[3]+(num_blocks[3]+1)*dense_depth[3], num_class)
 
     def _make_layer(self, in_planes, out_planes, num_blocks, dense_depth, stride):
         strides = [stride] + [1]*(num_blocks-1)
@@ -70,29 +70,31 @@ class DPN(nn.Module):
         return out
 
 
-def DPN26():
+def DPN26(num_class=3):
     cfg = {
         'in_planes': (96,192,384,768),
         'out_planes': (256,512,1024,2048),
         'num_blocks': (2,2,2,2),
         'dense_depth': (16,32,24,128)
     }
-    return DPN(cfg)
+    return DPN(cfg, num_class=num_class)
 
-def DPN92():
+def DPN92(num_class=3):
     cfg = {
         'in_planes': (96,192,384,768),
         'out_planes': (256,512,1024,2048),
         'num_blocks': (3,4,20,3),
         'dense_depth': (16,32,24,128)
     }
-    return DPN(cfg)
+    return DPN(cfg, num_class=num_class)
 
 
 def test():
-    net = DPN92()
-    x = torch.randn(1,3,32,32)
+    net = DPN92(num_class=3)
+    x = torch.randn(1,1,32,32)
     y = net(x)
     print(y)
+    summary(net.cuda(), [(1, 32,32)])
 
-# test()
+if __name__ == '__main__':
+    test()

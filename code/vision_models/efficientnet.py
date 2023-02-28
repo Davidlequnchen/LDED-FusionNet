@@ -7,7 +7,7 @@ Reference: https://github.com/keras-team/keras-applications/blob/master/keras_ap
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
+from torchsummary import summary
 
 def swish(x):
     return x * x.sigmoid()
@@ -108,7 +108,7 @@ class EfficientNet(nn.Module):
     def __init__(self, cfg, num_classes=10):
         super(EfficientNet, self).__init__()
         self.cfg = cfg
-        self.conv1 = nn.Conv2d(3,
+        self.conv1 = nn.Conv2d(1,
                                32,
                                kernel_size=3,
                                stride=1,
@@ -151,7 +151,7 @@ class EfficientNet(nn.Module):
         return out
 
 
-def EfficientNetB0():
+def EfficientNetB0(num_classes = 3):
     cfg = {
         'num_blocks': [1, 2, 2, 3, 3, 4, 1],
         'expansion': [1, 6, 6, 6, 6, 6, 6],
@@ -161,14 +161,16 @@ def EfficientNetB0():
         'dropout_rate': 0.2,
         'drop_connect_rate': 0.2,
     }
-    return EfficientNet(cfg)
+    return EfficientNet(cfg, num_classes = num_classes)
 
 
 def test():
-    net = EfficientNetB0()
-    x = torch.randn(2, 3, 32, 32)
+    net = EfficientNetB0(num_classes=3)
+    # x = torch.randn(2, 3, 32, 32)
+    x = torch.randn(1, 1, 32, 32)
     y = net(x)
     print(y.shape)
+    summary(net.cuda(), [(1, 32,32)])
 
 
 if __name__ == '__main__':

@@ -4,7 +4,7 @@ import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
+from torchsummary import summary
 
 class Bottleneck(nn.Module):
     def __init__(self, in_planes, growth_rate):
@@ -34,12 +34,12 @@ class Transition(nn.Module):
 
 
 class DenseNet(nn.Module):
-    def __init__(self, block, nblocks, growth_rate=12, reduction=0.5, num_classes=10):
+    def __init__(self, block, nblocks, growth_rate=12, reduction=0.5, num_classes=3):
         super(DenseNet, self).__init__()
         self.growth_rate = growth_rate
 
         num_planes = 2*growth_rate
-        self.conv1 = nn.Conv2d(3, num_planes, kernel_size=3, padding=1, bias=False)
+        self.conv1 = nn.Conv2d(1, num_planes, kernel_size=3, padding=1, bias=False)
 
         self.dense1 = self._make_dense_layers(block, num_planes, nblocks[0])
         num_planes += nblocks[0]*growth_rate
@@ -100,8 +100,11 @@ def densenet_cifar():
 
 def test():
     net = densenet_cifar()
-    x = torch.randn(1,3,32,32)
+    x = torch.randn(1,1,32,32)
     y = net(x)
     print(y)
+    summary(net.cuda(), (1, 32, 32))
 
-# test()
+if __name__ == '__main__':
+    test()
+

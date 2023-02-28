@@ -7,7 +7,7 @@ Reference:
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
+from torchsummary import summary
 
 class PreActBlock(nn.Module):
     '''Pre-activation version of the BasicBlock.'''
@@ -67,7 +67,7 @@ class PreActResNet(nn.Module):
         super(PreActResNet, self).__init__()
         self.in_planes = 64
 
-        self.conv1 = nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False)
+        self.conv1 = nn.Conv2d(1, 64, kernel_size=3, stride=1, padding=1, bias=False)
         self.layer1 = self._make_layer(block, 64, num_blocks[0], stride=1)
         self.layer2 = self._make_layer(block, 128, num_blocks[1], stride=2)
         self.layer3 = self._make_layer(block, 256, num_blocks[2], stride=2)
@@ -94,25 +94,27 @@ class PreActResNet(nn.Module):
         return out
 
 
-def PreActResNet18():
-    return PreActResNet(PreActBlock, [2,2,2,2])
+def PreActResNet18(num_classes=3):
+    return PreActResNet(PreActBlock, [2,2,2,2], num_classes)
 
-def PreActResNet34():
-    return PreActResNet(PreActBlock, [3,4,6,3])
+def PreActResNet34(num_classes=3):
+    return PreActResNet(PreActBlock, [3,4,6,3], num_classes)
 
-def PreActResNet50():
-    return PreActResNet(PreActBottleneck, [3,4,6,3])
+def PreActResNet50(num_classes=3):
+    return PreActResNet(PreActBottleneck, [3,4,6,3], num_classes)
 
-def PreActResNet101():
-    return PreActResNet(PreActBottleneck, [3,4,23,3])
+def PreActResNet101(num_classes=3):
+    return PreActResNet(PreActBottleneck, [3,4,23,3], num_classes)
 
-def PreActResNet152():
-    return PreActResNet(PreActBottleneck, [3,8,36,3])
+def PreActResNet152(num_classes=3):
+    return PreActResNet(PreActBottleneck, [3,8,36,3], num_classes)
 
 
 def test():
     net = PreActResNet18()
-    y = net((torch.randn(1,3,32,32)))
+    y = net((torch.randn(1,1,32,32)))
     print(y.size())
+    summary(net.cuda(), (1, 32, 32))
 
-# test()
+if __name__ == '__main__':
+    test()

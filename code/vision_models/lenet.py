@@ -6,13 +6,13 @@ from torchsummary import summary
 import numpy as np
 
 class LeNet(nn.Module):
-    def __init__(self):
+    def __init__(self, num_class=3):
         super(LeNet, self).__init__()
         self.conv1 = nn.Conv2d(in_channels=1, out_channels=6, kernel_size=5, stride=1, padding=2) # 3 for RGB, change to 1 for grey-scale image and audio
         self.conv2 = nn.Conv2d(6, 16, 5)
         self.fc1   = nn.Linear(16*6*6, 120) # input need to be determined
         self.fc2   = nn.Linear(120, 84)
-        self.fc3   = nn.Linear(84, 2) # 5 - output class
+        self.fc3   = nn.Linear(84, num_class) # 5 - output class
 
     def forward(self, x):
         out = F.relu(self.conv1(x))
@@ -35,13 +35,13 @@ class LeNet(nn.Module):
 
 
 def test():
-    net = LeNet()
+    net = LeNet(num_class =3)
     print (net)
     # vision
     # x = torch.randn(1, 1, 28, 28)
     # y = net(x)
     # print(y.size())
-    summary(net.cuda(), [(1, 32, 32)]) # image set
+    summary(net.cuda(), (1, 32, 32)) # image set
 
 if __name__ == '__main__':
     test()

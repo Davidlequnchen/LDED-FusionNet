@@ -6,7 +6,7 @@ for more details.
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
+from torchsummary import summary
 
 class Block(nn.Module):
     '''Depthwise conv + Pointwise conv'''
@@ -29,7 +29,7 @@ class MobileNet(nn.Module):
 
     def __init__(self, num_classes=10):
         super(MobileNet, self).__init__()
-        self.conv1 = nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1, bias=False)
+        self.conv1 = nn.Conv2d(1, 32, kernel_size=3, stride=1, padding=1, bias=False)
         self.bn1 = nn.BatchNorm2d(32)
         self.layers = self._make_layers(in_planes=32)
         self.linear = nn.Linear(1024, num_classes)
@@ -53,9 +53,11 @@ class MobileNet(nn.Module):
 
 
 def test():
-    net = MobileNet()
-    x = torch.randn(1,3,32,32)
+    net = MobileNet(num_classes=3)
+    x = torch.randn(1,1,32,32)
     y = net(x)
     print(y.size())
+    summary(net.cuda(), [(1, 32,32)])
 
-# test()
+if __name__ == '__main__':
+    test()

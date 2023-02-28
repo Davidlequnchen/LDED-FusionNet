@@ -22,7 +22,7 @@ import torch.nn.functional as F
 
 
 class MFCCCNN(nn.Module):
-    def __init__(self):
+    def __init__(self, num_classes=3):
         super(MFCCCNN, self).__init__()
         self.conv1 = nn.Conv2d(in_channels=1, out_channels=32, kernel_size=5, padding=2, stride=1)
         self.pool1 = nn.MaxPool2d(kernel_size=2, stride=2)
@@ -35,7 +35,7 @@ class MFCCCNN(nn.Module):
         self.flatten = nn.Flatten()
         self.fc1 = nn.Linear(in_features=128*2 , out_features=128)
         self.dropout3 = nn.Dropout(p=0.5)
-        self.fc2 = nn.Linear(in_features=128, out_features= 2)
+        self.fc2 = nn.Linear(in_features=128, out_features= num_classes) # num of output class
         self.softmax = nn.Softmax(dim=1)
 
     def forward(self, x):
@@ -55,7 +55,7 @@ class MFCCCNN(nn.Module):
         return predictions
 
 if __name__ == "__main__":
-    cnn = MFCCCNN()
+    cnn = MFCCCNN(num_classes=3)
     print (cnn)
     summary(cnn.cuda(), (1, 20, 8))
 

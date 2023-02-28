@@ -76,7 +76,7 @@ class Tree(nn.Module):
 
 
 class SimpleDLA(nn.Module):
-    def __init__(self, block=BasicBlock, num_classes=5):
+    def __init__(self, block=BasicBlock, num_classes=3):
         super(SimpleDLA, self).__init__()
         self.base = nn.Sequential(
             nn.Conv2d(1, 16, kernel_size=3, stride=1, padding=1, bias=False),
@@ -117,12 +117,12 @@ class SimpleDLA(nn.Module):
 
 
 def test():
-    net = SimpleDLA()
-    # print(net)
-    # x = torch.randn(1, 1, 32, 32)
-    # y = net(x)
-    # print(y.size())
-    summary(net.cuda(), [(1, 32, 32)])
+    net = SimpleDLA(num_classes=3)
+    print(net)
+    x = torch.randn(1, 1, 32, 32)
+    y = net(x)
+    print(y.size())
+    # summary(net.cuda(), (1, 32, 32)) 
 
 
 if __name__ == '__main__':

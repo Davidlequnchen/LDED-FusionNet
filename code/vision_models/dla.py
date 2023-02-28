@@ -6,7 +6,7 @@ Reference:
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
+from torchsummary import summary
 
 class BasicBlock(nn.Module):
     expansion = 1
@@ -86,7 +86,7 @@ class DLA(nn.Module):
     def __init__(self, block=BasicBlock, num_classes=10):
         super(DLA, self).__init__()
         self.base = nn.Sequential(
-            nn.Conv2d(3, 16, kernel_size=3, stride=1, padding=1, bias=False),
+            nn.Conv2d(1, 16, kernel_size=3, stride=1, padding=1, bias=False),
             nn.BatchNorm2d(16),
             nn.ReLU(True)
         )
@@ -124,11 +124,12 @@ class DLA(nn.Module):
 
 
 def test():
-    net = DLA()
+    net = DLA(num_classes=3)
     print(net)
-    x = torch.randn(1, 3, 32, 32)
+    x = torch.randn(1, 1, 32, 32)
     y = net(x)
     print(y.size())
+    # summary(net.cuda(), [(1, 32,32)]) 
 
 
 if __name__ == '__main__':

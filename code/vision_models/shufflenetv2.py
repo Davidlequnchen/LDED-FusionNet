@@ -5,7 +5,7 @@ See the paper "ShuffleNet V2: Practical Guidelines for Efficient CNN Architectur
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
+from torchsummary import summary
 
 class ShuffleBlock(nn.Module):
     def __init__(self, groups=2):
@@ -94,12 +94,12 @@ class DownBlock(nn.Module):
 
 
 class ShuffleNetV2(nn.Module):
-    def __init__(self, net_size):
+    def __init__(self, net_size, num_classes=3):
         super(ShuffleNetV2, self).__init__()
         out_channels = configs[net_size]['out_channels']
         num_blocks = configs[net_size]['num_blocks']
 
-        self.conv1 = nn.Conv2d(3, 24, kernel_size=3,
+        self.conv1 = nn.Conv2d(1, 24, kernel_size=3,
                                stride=1, padding=1, bias=False)
         self.bn1 = nn.BatchNorm2d(24)
         self.in_channels = 24
@@ -109,7 +109,7 @@ class ShuffleNetV2(nn.Module):
         self.conv2 = nn.Conv2d(out_channels[2], out_channels[3],
                                kernel_size=1, stride=1, padding=0, bias=False)
         self.bn2 = nn.BatchNorm2d(out_channels[3])
-        self.linear = nn.Linear(out_channels[3], 10)
+        self.linear = nn.Linear(out_channels[3], num_classes)
 
     def _make_layer(self, out_channels, num_blocks):
         layers = [DownBlock(self.in_channels, out_channels)]
@@ -154,9 +154,14 @@ configs = {
 
 def test():
     net = ShuffleNetV2(net_size=0.5)
-    x = torch.randn(3, 3, 32, 32)
+    # x = torch.randn(3, 3, 32, 32)
+    x = torch.randn(1, 1, 32, 32)
     y = net(x)
     print(y.shape)
+    summary(net.cuda(), (1, 32, 32))
+    
 
 
-# test()
+if __name__ == '__main__':
+    test()
+

@@ -7,7 +7,7 @@ Reference: https://github.com/keras-team/keras-applications/blob/master/keras_ap
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
+from torchsummary import summary
 
 class SE(nn.Module):
     '''Squeeze-and-Excitation block.'''
@@ -70,7 +70,7 @@ class RegNet(nn.Module):
         super(RegNet, self).__init__()
         self.cfg = cfg
         self.in_planes = 64
-        self.conv1 = nn.Conv2d(3, 64, kernel_size=3,
+        self.conv1 = nn.Conv2d(1, 64, kernel_size=3,
                                stride=1, padding=1, bias=False)
         self.bn1 = nn.BatchNorm2d(64)
         self.layer1 = self._make_layer(0)
@@ -107,7 +107,7 @@ class RegNet(nn.Module):
         return out
 
 
-def RegNetX_200MF():
+def RegNetX_200MF(num_classes=3):
     cfg = {
         'depths': [1, 1, 4, 7],
         'widths': [24, 56, 152, 368],
@@ -116,7 +116,7 @@ def RegNetX_200MF():
         'bottleneck_ratio': 1,
         'se_ratio': 0,
     }
-    return RegNet(cfg)
+    return RegNet(cfg, num_classes)
 
 
 def RegNetX_400MF():
@@ -144,11 +144,14 @@ def RegNetY_400MF():
 
 
 def test():
-    net = RegNetX_200MF()
+    net = RegNetX_200MF(num_classes=3)
     print(net)
-    x = torch.randn(2, 3, 32, 32)
+    # x = torch.randn(2, 3, 32, 32)
+    x = torch.randn(1, 1, 32, 32)
     y = net(x)
     print(y.shape)
+    summary(net.cuda(), (1, 32, 32))
+    
 
 
 if __name__ == '__main__':

@@ -5,7 +5,7 @@ See the paper "ShuffleNet: An Extremely Efficient Convolutional Neural Network f
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
+from torchsummary import summary
 
 class ShuffleBlock(nn.Module):
     def __init__(self, groups):
@@ -26,7 +26,9 @@ class Bottleneck(nn.Module):
 
         mid_planes = out_planes/4
         g = 1 if in_planes==24 else groups
-        self.conv1 = nn.Conv2d(in_planes, mid_planes, kernel_size=1, groups=g, bias=False)
+        self.conv1 = nn.Conv2d(in_planes, mid_planes, kernel_size=13, groups=g, bias=False)
+        # self.conv1 = nn.Conv2d(in_planes, in_planes,
+        #                        kernel_size=3, stride=2, padding=1, groups=in_planes, bias=False)
         self.bn1 = nn.BatchNorm2d(mid_planes)
         self.shuffle1 = ShuffleBlock(groups=g)
         self.conv2 = nn.Conv2d(mid_planes, mid_planes, kernel_size=3, stride=stride, padding=1, groups=mid_planes, bias=False)
@@ -49,19 +51,21 @@ class Bottleneck(nn.Module):
 
 
 class ShuffleNet(nn.Module):
-    def __init__(self, cfg):
+    def __init__(self, cfg, num_classes=10):
         super(ShuffleNet, self).__init__()
         out_planes = cfg['out_planes']
         num_blocks = cfg['num_blocks']
         groups = cfg['groups']
 
         self.conv1 = nn.Conv2d(3, 24, kernel_size=1, bias=False)
+        # self.conv1 = nn.Conv2d(1, 24, kernel_size=3,
+        #                        stride=1, padding=1, bias=False)
         self.bn1 = nn.BatchNorm2d(24)
         self.in_planes = 24
         self.layer1 = self._make_layer(out_planes[0], num_blocks[0], groups)
         self.layer2 = self._make_layer(out_planes[1], num_blocks[1], groups)
         self.layer3 = self._make_layer(out_planes[2], num_blocks[2], groups)
-        self.linear = nn.Linear(out_planes[2], 10)
+        self.linear = nn.Linear(out_planes[2], num_classes)
 
     def _make_layer(self, out_planes, num_blocks, groups):
         layers = []
@@ -102,8 +106,13 @@ def ShuffleNetG3():
 
 def test():
     net = ShuffleNetG2()
-    x = torch.randn(1,3,32,32)
+    x = torch.randn(3,3,32,32)
     y = net(x)
     print(y)
+    # summary(net.cuda(), (1, 32, 32))
+    
 
-# test()
+
+if __name__ == '__main__':
+    test()
+
