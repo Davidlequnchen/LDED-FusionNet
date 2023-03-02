@@ -35,7 +35,7 @@ class MFCCCNN(nn.Module):
         self.flatten = nn.Flatten()
         self.fc1 = nn.Linear(in_features=128*2 , out_features=128)
         self.dropout3 = nn.Dropout(p=0.5)
-        self.fc2 = nn.Linear(in_features=128, out_features= 2)
+        self.fc2 = nn.Linear(in_features=128, out_features= 3)
         self.softmax = nn.Softmax(dim=1)
 
     def forward(self, x):

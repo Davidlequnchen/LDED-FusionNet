@@ -13,6 +13,7 @@ Some helper functions for PyTorch, including:
     - cross_validation_model: calculated mean and std of test accuracy on K fold.
     - get_accuracy
 '''
+
 import os
 import sys
 import time
@@ -50,11 +51,9 @@ from sklearn.model_selection import train_test_split, StratifiedShuffleSplit
 from sklearn.preprocessing import label_binarize
 
 
-
-
 term_width = 30
 
-TOTAL_BAR_LENGTH = 45.
+TOTAL_BAR_LENGTH = 80.
 last_time = time.time()
 begin_time = last_time
 def progress_bar(current, total, msg=None):

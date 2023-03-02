@@ -27,6 +27,8 @@ from sklearn.model_selection import train_test_split, StratifiedShuffleSplit
 from sklearn.preprocessing import label_binarize
 
 from utils import progress_bar
+from datetime import datetime
+
 
 def train_single_epoch(model, epoch, trainloader, loss_fn, optimizer, device, mode = "single_model"):
     '''
@@ -61,8 +63,8 @@ def train_single_epoch(model, epoch, trainloader, loss_fn, optimizer, device, mo
         _, predicted = outputs.max(1)
         total += targets.size(0)
         correct += predicted.eq(targets).sum().item()
-        progress_bar(batch_idx, len(trainloader), 'Loss: %.3f | Train Acc: %.3f%% (%d/%d)'
-                    % (train_loss/(batch_idx+1), 100.*correct/total, correct, total))
+        # progress_bar(batch_idx, len(trainloader), 'Loss: %.3f | Train Acc: %.3f%% (%d/%d)'
+        #             % (train_loss/(batch_idx+1), 100.*correct/total, correct, total))
 
     acc = 100.*correct/total
     # print(f"loss: {loss.item()}")
@@ -100,8 +102,8 @@ def test_single_epoch(model, epoch, testloader, loss_fn, device, mode = "single_
             total += targets.size(0)
             correct += predicted.eq(targets).sum().item()
 
-            progress_bar(batch_idx, len(testloader), 'Loss: %.3f | Test Acc: %.3f%% (%d/%d)'
-                        % (test_loss/(batch_idx+1), 100.*correct/total, correct, total))
+            # progress_bar(batch_idx, len(testloader), 'Loss: %.3f | Test Acc: %.3f%% (%d/%d)'
+            #             % (test_loss/(batch_idx+1), 100.*correct/total, correct, total))
 
     # Save checkpoint.
     acc = 100.*correct/total
@@ -142,17 +144,17 @@ def training_loop(model, loss_fn, optimizer, train_loader, valid_loader, epochs,
         model, valid_loss, valid_acc = test_single_epoch(model, epoch, valid_loader, loss_fn, device, mode = mode)
         valid_losses.append(valid_loss)
 
-#         if epoch % print_every == (print_every - 1):
+        # if epoch % print_every == (print_every - 1):
             
-#             train_acc = get_accuracy(model, train_loader, device=device)
-#             valid_acc = get_accuracy(model, valid_loader, device=device)
+        #     train_acc = get_accuracy(model, train_loader, device=device)
+        #     valid_acc = get_accuracy(model, valid_loader, device=device)
                 
-#             print(f'{datetime.now().time().replace(microsecond=0)} --- '
-#                   f'Epoch: {epoch}\t'
-#                   f'Train loss: {train_loss:.4f}\t'
-#                   f'Valid loss: {valid_loss:.4f}\t'
-#                   f'Train accuracy: {100 * train_acc:.2f}\t'
-#                   f'Valid accuracy: {100 * valid_acc:.2f}')
+        print(f'{datetime.now().time().replace(microsecond=0)} --- '
+              f'Epoch: {epoch}\t'
+              f'Train loss: {train_loss:.4f}\t'
+              f'Valid loss: {valid_loss:.4f}\t'
+              f'Train accuracy: {train_acc:.2f}\t'
+              f'Valid accuracy: {valid_acc:.2f}')
         
         train_accuracy.append(train_acc)
         valid_accuracy.append(valid_acc)

@@ -161,7 +161,8 @@ class LDEDAudioDataset(Dataset):
 
 if __name__ == "__main__":
 
-    Multimodal_dataset_PATH = os.path.join("C:\\Users\\Asus\\OneDrive_Chen1470\\OneDrive - Nanyang Technological University\\Dataset\\Multimodal_AM_monitoring\\LDED_Acoustic_Visual_Dataset")
+    # Multimodal_dataset_PATH = os.path.join("C:\\Users\\Asus\\OneDrive_Chen1470\\OneDrive - Nanyang Technological University\\Dataset\\Multimodal_AM_monitoring\\LDED_Acoustic_Visual_Dataset")
+    Multimodal_dataset_PATH = os.path.join("/home/chenlequn/Dataset/Multimodal_AM_monitoring/LDED_Acoustic_Visual_Dataset")
     CCD_Image_30Hz_path = os.path.join(Multimodal_dataset_PATH, 'Coaxial_CCD_images_30Hz')
     Audio_segmented_30Hz_PATH = os.path.join(Multimodal_dataset_PATH, 'Audio_signal_all_30Hz')
     Audio_raw_seg_PATH = os.path.join(Audio_segmented_30Hz_PATH, 'raw')

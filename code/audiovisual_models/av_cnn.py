@@ -136,8 +136,8 @@ class AudioVisualFusionCNN(nn.Module):
         )
 
         self.flatten = nn.Flatten()
-         # first element can get via summary; total 5 output class (laser-off, laser-start, defect-free, cracks, keyhole pores)
-        self.linear = nn.Linear(1280, 2)
+         # first element can get via summary; total x output class (laser-off, laser-start, defect-free, cracks, keyhole pores)
+        self.linear = nn.Linear(1280, 3)
         self.softmax = nn.Softmax(dim=1)
 
     def forward(self, image, audio):
