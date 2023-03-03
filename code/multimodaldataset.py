@@ -77,7 +77,7 @@ class MultimodalDataset(Dataset):
         return path
 
     def _get_sample_label(self, index):
-        return self.annotations.iloc[index, 6]
+        return self.annotations.iloc[index, 4]
 
 
 
@@ -108,7 +108,7 @@ class LDEDVisionDataset(Dataset):
         return path
 
     def _get_sample_label(self, index):
-        return self.annotations.iloc[index, 6]
+        return self.annotations.iloc[index, 4]
 
 
 class LDEDAudioDataset(Dataset):
@@ -155,27 +155,27 @@ class LDEDAudioDataset(Dataset):
         return path
     
     def _get_sample_label(self, index):
-        return self.annotations.iloc[index, 6]
+        return self.annotations.iloc[index, 4]
 
 
 
 if __name__ == "__main__":
 
-    # Multimodal_dataset_PATH = os.path.join("C:\\Users\\Asus\\OneDrive_Chen1470\\OneDrive - Nanyang Technological University\\Dataset\\Multimodal_AM_monitoring\\LDED_Acoustic_Visual_Dataset")
-    Multimodal_dataset_PATH = os.path.join("/home/chenlequn/Dataset/Multimodal_AM_monitoring/LDED_Acoustic_Visual_Dataset")
-    CCD_Image_30Hz_path = os.path.join(Multimodal_dataset_PATH, 'Coaxial_CCD_images_30Hz')
-    Audio_segmented_30Hz_PATH = os.path.join(Multimodal_dataset_PATH, 'Audio_signal_all_30Hz')
-    Audio_raw_seg_PATH = os.path.join(Audio_segmented_30Hz_PATH, 'raw')
-    Audio_equalized_seg_PATH = os.path.join(Audio_segmented_30Hz_PATH, 'equalized')
-    Audio_bandpassed_seg_PATH = os.path.join(Audio_segmented_30Hz_PATH, 'bandpassed')
-    Audio_denoised_seg_PATH = os.path.join(Audio_segmented_30Hz_PATH, 'denoised')
+    Multimodal_dataset_PATH = os.path.join("/home/chenlequn/Dataset/LDED_acoustic_visual_monitoring_dataset")
+    Image_path = os.path.join(Multimodal_dataset_PATH,'Video', 'segmented',  'images')
+    Audio_raw_seg_PATH = os.path.join(Multimodal_dataset_PATH, 'Video', 'segmented', 'raw_audio')
+    Audio_equalized_seg_PATH = os.path.join(Multimodal_dataset_PATH, 'Video', 'segmented', 'equalized_audio')
+    Audio_bandpassed_seg_PATH = os.path.join(Multimodal_dataset_PATH, 'Video', 'segmented', 'bandpassed_audio')
+    Audio_denoised_seg_PATH = os.path.join(Multimodal_dataset_PATH,'Video', 'segmented',  'denoised_audio')
 
-    ANNOTATIONS_FILE = os.path.join(Multimodal_dataset_PATH, "vision_acoustic_label_v2.csv")
+    ANNOTATIONS_FILE = os.path.join(Multimodal_dataset_PATH, 'Video', 'segmented', "visual_acoustic_dataset_annotations.csv")
     annotation_df = pd.read_csv(ANNOTATIONS_FILE)
+
 
     ## select denoised audio signal
     AUDIO_DIR = Audio_denoised_seg_PATH
-    VISON_DIR = CCD_Image_30Hz_path
+    VISON_DIR = Image_path
+
     SAMPLE_RATE = 44100
     # NUM_SAMPLES = 44100
 
@@ -230,10 +230,10 @@ if __name__ == "__main__":
     print(f"There are {len(visiondataset)} samples in the visiondataset dataset.")
     print(f"There are {len(audiodataset)} samples in the audiodataset dataset.")
     multimodal_inputs, label = mmd[100]
-    image_input_vision, label_vision = visiondataset[50]
+    image_input_vision, label_vision = visiondataset[500]
     audio_input_audioset, label_audio = audiodataset[3000]
 
     print (multimodal_inputs[0].shape, multimodal_inputs[1].shape, label)
-    # print (image_input_vision.shape, label_vision)
-    # print (audio_input_audioset.shape, label_audio)
+    print (image_input_vision.shape, label_vision)
+    print (audio_input_audioset.shape, label_audio)
 

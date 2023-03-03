@@ -73,7 +73,7 @@ class VGG(nn.Module):
     def __init__(self, vgg_name):
         super(VGG, self).__init__()
         self.features = self._make_layers(cfg[vgg_name])
-        self.classifier = nn.Linear(512, 2)
+        self.classifier = nn.Linear(512, 4)
 
     def forward(self, x):
         out = self.features(x)
@@ -137,7 +137,7 @@ class AudioVisualFusionCNN(nn.Module):
 
         self.flatten = nn.Flatten()
          # first element can get via summary; total x output class (laser-off, laser-start, defect-free, cracks, keyhole pores)
-        self.linear = nn.Linear(1280, 3)
+        self.linear = nn.Linear(1280, 4)
         self.softmax = nn.Softmax(dim=1)
 
     def forward(self, image, audio):
@@ -157,5 +157,5 @@ if __name__ == "__main__":
     audio = torch.randn(1, 1, 20, 8)
     predictions = model(image, audio)
     print (predictions)
-    summary(model.cuda(), [(1, 32, 32), (1, 20, 8)]) # image and audio dual inputs
+    summary(model.cuda(), [(1, 32, 32), (1, 20, 23)]) # image and audio dual inputs
     make_dot(predictions.mean(), params=dict(model.named_parameters()))

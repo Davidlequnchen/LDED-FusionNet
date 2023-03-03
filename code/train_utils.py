@@ -28,7 +28,7 @@ from sklearn.preprocessing import label_binarize
 
 from utils import progress_bar
 from datetime import datetime
-
+from tqdm import tqdm
 
 def train_single_epoch(model, epoch, trainloader, loss_fn, optimizer, device, mode = "single_model"):
     '''
@@ -40,7 +40,11 @@ def train_single_epoch(model, epoch, trainloader, loss_fn, optimizer, device, mo
     train_loss = 0
     correct = 0
     total = 0
-    for batch_idx, (inputs, targets) in enumerate(trainloader):
+
+    #  create a progress bar for the training data loader
+    pbar = tqdm(trainloader, desc=f"Epoch {epoch}")
+    
+    for batch_idx, (inputs, targets) in enumerate(pbar):
         if mode == "single_model":
             inputs, targets = inputs.to(device), targets.to(device)
             outputs = model(inputs)
@@ -58,18 +62,19 @@ def train_single_epoch(model, epoch, trainloader, loss_fn, optimizer, device, mo
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-        # record current progress
+
+        # record and update current progress
         train_loss += loss.item()
         _, predicted = outputs.max(1)
         total += targets.size(0)
         correct += predicted.eq(targets).sum().item()
-        # progress_bar(batch_idx, len(trainloader), 'Loss: %.3f | Train Acc: %.3f%% (%d/%d)'
-        #             % (train_loss/(batch_idx+1), 100.*correct/total, correct, total))
+        # update the progress bar with the loss, accuracy
+        pbar.set_postfix({'loss': train_loss/(batch_idx+1), 
+                          'accuracy': 100.*correct/total})
 
     acc = 100.*correct/total
-    # print(f"loss: {loss.item()}")
     epoch_loss = running_loss / len(trainloader.dataset)
-    # print("--------------epoch finished---------------")
+
     return model, optimizer, epoch_loss, acc
 
 
@@ -81,6 +86,9 @@ def test_single_epoch(model, epoch, testloader, loss_fn, device, mode = "single_
     total = 0
     running_loss = 0
     with torch.no_grad():
+        #  create a progress bar for the training data loader
+        pbar = tqdm(testloader, desc=f"Epoch {epoch}") 
+
         for batch_idx, (inputs, targets) in enumerate(testloader):
             if mode == "single_model":
                 inputs, targets = inputs.to(device), targets.to(device)
@@ -102,8 +110,9 @@ def test_single_epoch(model, epoch, testloader, loss_fn, device, mode = "single_
             total += targets.size(0)
             correct += predicted.eq(targets).sum().item()
 
-            # progress_bar(batch_idx, len(testloader), 'Loss: %.3f | Test Acc: %.3f%% (%d/%d)'
-            #             % (test_loss/(batch_idx+1), 100.*correct/total, correct, total))
+            # update the progress bar with the loss, accuracy
+            pbar.set_postfix({'loss': test_loss/(batch_idx+1), 
+                          'accuracy': 100.*correct/total})
 
     # Save checkpoint.
     acc = 100.*correct/total
