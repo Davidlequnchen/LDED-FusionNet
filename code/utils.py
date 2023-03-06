@@ -387,6 +387,7 @@ def roc_auc_evaluation(model, dataloader, device, classes, classifier_name, mode
     '''
     n_classes = len(classes)
     all_targets = []
+    all_targets_ohe = []
     all_scores = []
     model.eval()
     with torch.no_grad():
@@ -394,25 +395,28 @@ def roc_auc_evaluation(model, dataloader, device, classes, classifier_name, mode
             if mode == "single_model":
                 inputs, targets = inputs.to(device), targets.to(device)
                 scores = model(inputs)
+                targets_ohe = torch.nn.functional.one_hot(targets, num_classes = n_classes)
             elif mode == "multi_model":
                 inputs = [x.to(device) for x in inputs]
                 targets = targets.to(device)
                 scores = model(*inputs)
-            targets = torch.nn.functional.one_hot(targets)
+                targets_ohe = torch.nn.functional.one_hot(targets, num_classes = n_classes)
+            all_targets_ohe.append(targets_ohe.cpu().numpy())
             all_targets.append(targets.cpu().numpy())
             all_scores.append(scores.cpu().numpy())
     all_targets = np.concatenate(all_targets, axis=0)
+    all_targets_ohe = np.concatenate(all_targets_ohe, axis=0)
     all_scores = np.concatenate(all_scores, axis=0)
                                     
     fpr = dict()
     tpr = dict()
     roc_auc = dict()
     for i in range(n_classes):
-        fpr[i], tpr[i], _ = roc_curve(all_targets[:, i], all_scores[:, i])
+        fpr[i], tpr[i], _ = roc_curve(all_targets_ohe[:, i], all_scores[:, i])
         roc_auc[i] = auc(fpr[i], tpr[i])
     
     # calculate micro-average ROC-AUC
-    fpr["micro"], tpr["micro"], _ = roc_curve(all_targets.ravel(), all_scores.ravel())
+    fpr["micro"], tpr["micro"], _ = roc_curve(all_targets_ohe.ravel(), all_scores.ravel())
     roc_auc["micro"] = auc(fpr["micro"], tpr["micro"])
     # First aggregate all false positive rates
     all_fpr = np.unique(np.concatenate([fpr[i] for i in range(n_classes)]))

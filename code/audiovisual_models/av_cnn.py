@@ -102,7 +102,7 @@ class AudioVisualFusionCNN(nn.Module):
         super(AudioVisualFusionCNN, self).__init__()
         # CNN architecture (Vision + Audio)
         self.image_stream = nn.Sequential(
-            VGG('VGG16')
+            VGG('VGG11')
         )
 
         self.audio_stream = nn.Sequential(
@@ -137,7 +137,7 @@ class AudioVisualFusionCNN(nn.Module):
 
         self.flatten = nn.Flatten()
          # first element can get via summary; total x output class (laser-off, laser-start, defect-free, cracks, keyhole pores)
-        self.linear = nn.Linear(1280, 4)
+        self.linear = nn.Linear(1664, 3)
         self.softmax = nn.Softmax(dim=1)
 
     def forward(self, image, audio):
@@ -154,8 +154,8 @@ class AudioVisualFusionCNN(nn.Module):
 if __name__ == "__main__":
     model = AudioVisualFusionCNN()
     image = torch.randn(1, 1, 32, 32)
-    audio = torch.randn(1, 1, 20, 8)
+    audio = torch.randn(1, 1, 32, 18) # (1, 1, 20, 23)
     predictions = model(image, audio)
     print (predictions)
-    summary(model.cuda(), [(1, 32, 32), (1, 20, 23)]) # image and audio dual inputs
+    summary(model.cuda(), [(1, 32, 32), (1, 32, 18)]) # image and audio dual inputs
     make_dot(predictions.mean(), params=dict(model.named_parameters()))

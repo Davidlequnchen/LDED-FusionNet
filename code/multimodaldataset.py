@@ -3,7 +3,7 @@ import os
 import sys
 from typing import Callable, Dict
 
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset, DataLoader
 import torchvision.transforms as transforms
 import torchvision
 import PIL.Image
@@ -23,8 +23,8 @@ class MultimodalDataset(Dataset):
                  image_path,
                  audio_path,
                  image_transformation,
-                #  mel_spectrogram,
-                 MFCCs,
+                 mel_spectrogram,
+                #  MFCCs,
                 #  spectral_centroid,
                  target_sample_rate,
                 #  num_samples,
@@ -35,8 +35,8 @@ class MultimodalDataset(Dataset):
         self.device = device
         # self.img_transform = nn.DataParallel(image_transformation) # parallelize the computation on multiple GPUs.
         self.img_transform = image_transformation
-        # self.mel_spectrogram = mel_spectrogram.to(self.device)
-        self.MFCCs = MFCCs.to(self.device)
+        self.mel_spectrogram = mel_spectrogram.to(self.device)
+        # self.MFCCs = MFCCs.to(self.device)
         # self.spectral_centroid = spectral_centroid.to(self.device)
         self.target_sample_rate = target_sample_rate
         # self.num_samples = num_samples
@@ -61,11 +61,11 @@ class MultimodalDataset(Dataset):
         # image = torch.from_numpy(np.array(image))    
         image_transformed = self.img_transform(image)
         # conduct the transformations
-        # signal_mel_spectrogram = self.mel_spectrogram(audio_signal)
-        signal_mfcc = self.MFCCs(audio_signal)
+        signal_mel_spectrogram = self.mel_spectrogram(audio_signal)
+        # signal_mfcc = self.MFCCs(audio_signal)
         # signal_spectral_centroid = self.spectral_centroid(audio_signal)
     
-        return (image_transformed, signal_mfcc), label
+        return (image_transformed, signal_mel_spectrogram), label
 
 
     def _get_audio_sample_path(self, index):
@@ -77,7 +77,7 @@ class MultimodalDataset(Dataset):
         return path
 
     def _get_sample_label(self, index):
-        return self.annotations.iloc[index, 4]
+        return self.annotations.iloc[index, 6]
 
 
 
@@ -108,23 +108,23 @@ class LDEDVisionDataset(Dataset):
         return path
 
     def _get_sample_label(self, index):
-        return self.annotations.iloc[index, 4]
+        return self.annotations.iloc[index, 6]
 
 
 class LDEDAudioDataset(Dataset):
     def __init__(self,
                  annotation_df,
                  audio_path,
-                #  mel_spectrogram,
-                 MFCCs,
+                 mel_spectrogram,
+                #  MFCCs,
                 #  spectral_centroid,
                  target_sample_rate,
                  device):
         self.annotations = annotation_df
         self.audio_dir = audio_path
         self.device = device
-        # self.mel_spectrogram = mel_spectrogram.to(self.device)
-        self.MFCCs = MFCCs.to(self.device)
+        self.mel_spectrogram = mel_spectrogram.to(self.device)
+        # self.MFCCs = MFCCs.to(self.device)
         # self.spectral_centroid = spectral_centroid.to(self.device)
         self.target_sample_rate = target_sample_rate
 
@@ -143,11 +143,11 @@ class LDEDAudioDataset(Dataset):
         # signal = self._right_pad_if_necessary(signal)
 
         # conduct the transformations
-        # signal_mel_spectrogram = self.mel_spectrogram(audio_signal)
-        signal_mfcc = self.MFCCs(audio_signal)
+        signal_mel_spectrogram = self.mel_spectrogram(audio_signal)
+        # signal_mfcc = self.MFCCs(audio_signal)
         # signal_spectral_centroid = self.spectral_centroid(audio_signal)
         
-        return signal_mfcc, label
+        return signal_mel_spectrogram, label
 
 
     def _get_audio_sample_path(self, index):
@@ -155,7 +155,7 @@ class LDEDAudioDataset(Dataset):
         return path
     
     def _get_sample_label(self, index):
-        return self.annotations.iloc[index, 4]
+        return self.annotations.iloc[index, 6]
 
 
 
@@ -168,12 +168,12 @@ if __name__ == "__main__":
     Audio_bandpassed_seg_PATH = os.path.join(Multimodal_dataset_PATH, 'Video', 'segmented', 'bandpassed_audio')
     Audio_denoised_seg_PATH = os.path.join(Multimodal_dataset_PATH,'Video', 'segmented',  'denoised_audio')
 
-    ANNOTATIONS_FILE = os.path.join(Multimodal_dataset_PATH, 'Video', 'segmented', "visual_acoustic_dataset_annotations.csv")
+    ANNOTATIONS_FILE = os.path.join(Multimodal_dataset_PATH, 'Video', 'segmented', "visual_acoustic_dataset_annotations_v2.csv")
     annotation_df = pd.read_csv(ANNOTATIONS_FILE)
 
 
     ## select denoised audio signal
-    AUDIO_DIR = Audio_denoised_seg_PATH
+    AUDIO_DIR = Audio_raw_seg_PATH
     VISON_DIR = Image_path
 
     SAMPLE_RATE = 44100
@@ -188,7 +188,7 @@ if __name__ == "__main__":
     img_transform = torchvision.transforms.Compose([
             torchvision.transforms.Resize((32,32)), # original image size: (640,480)
             torchvision.transforms.ToTensor(),
-            torchvision.transforms.Normalize(mean=[136.21606092530587], std=[61.86861591088625]), #136.21606092530587 61.86861591088625
+            torchvision.transforms.Normalize(mean=[47.5905037932074], std=[61.13815627108221]), 
             # note that if resize is before normalization, need to re-calculate the mean and std; if resize is after normalize, could induce distortions
         ]) # calculation of mean and std is shown in jupyter notebook 1.
  
@@ -205,8 +205,8 @@ if __name__ == "__main__":
                             VISON_DIR,
                             AUDIO_DIR,
                             img_transform,
-                            # mel_spectrogram,
-                            MFCCs,
+                            mel_spectrogram,
+                            # MFCCs,
                             # spectral_centroid,
                             SAMPLE_RATE,
                             # NUM_SAMPLES,
@@ -219,8 +219,8 @@ if __name__ == "__main__":
 
     audiodataset = LDEDAudioDataset(annotation_df,
                                     AUDIO_DIR,
-                                    # mel_spectrogram,
-                                    MFCCs,
+                                    mel_spectrogram,
+                                    # MFCCs,
                                     # spectral_centroid,
                                     SAMPLE_RATE,
                                     device)
@@ -233,7 +233,21 @@ if __name__ == "__main__":
     image_input_vision, label_vision = visiondataset[500]
     audio_input_audioset, label_audio = audiodataset[3000]
 
+    # test_dataloader = DataLoader(visiondataset, batch_size=32, shuffle=False, num_workers=2)
+    # all_targets_ohe = []
+    # all_targets = []
+    # with torch.no_grad():
+    #     for inputs, targets in test_dataloader:
+    #         inputs, targets = inputs.to(device), targets.to(device)
+    #         label_vision_ohe = torch.nn.functional.one_hot(targets, num_classes = 4)
+    #         all_targets.append(targets.cpu().numpy())
+    #         all_targets_ohe.append(label_vision_ohe.cpu().numpy())
+    # all_targets = np.concatenate(all_targets, axis=0)
+    # all_targets_ohe = np.concatenate(all_targets_ohe, axis=0)
+
     print (multimodal_inputs[0].shape, multimodal_inputs[1].shape, label)
     print (image_input_vision.shape, label_vision)
     print (audio_input_audioset.shape, label_audio)
+    # print ("all target enoded: " + str(all_targets))
+    # print ("one-hot target enoded: " + str(all_targets_ohe))
 

@@ -19,3 +19,7 @@ prettytable==3.6.0
 pyAudioAnalysis
 tqdm
 moviepy
+torchviz
+audiomentations
+pydub
+torch-audiomentations
