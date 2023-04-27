@@ -1,0 +1,18 @@
+ffmpeg -framerate 30 -i sample32_frame%06d.jpg -vf "drawtext=textfile=annotations.txt:reload=1:x=10:y=10:fontsize=24:fontcolor_expr=if(eq(text_w,4),'red',if(eq(text_w,5),'green',if(eq(text_w,6),'blue','white'))):box=1:boxcolor=black@0.5" -c:v libx264 -pix_fmt yuv420p output_video.mp4
+
+ffmpeg -framerate 10 -i sample_22_%d.jpg -vf "drawtext=textfile=annotations_22.txt:reload=1:x=10:y=10:fontsize=24:fontcolor=text_g:box=1:boxcolor=black@0.5" -c:v libx264 -pix_fmt yuv420p output_video.mp4
+
+
+
+ffmpeg -framerate 10 -i sample22_frame_%d.jpg -filter_complex_script annotations_22.txt -c:v libx264 -pix_fmt yuv420p output_video.mp4
+
+
+
+ffmpeg -framerate 10 -i sample_22_%d.jpg -c:v libx264 -pix_fmt yuv420p output_video.mp4 (succesful)
+
+ffmpeg -framerate 10 -i sample_22_%d.jpg -c:v libx264 -pix_fmt yuv420p -vf "drawtext=textfile=annotations_22.txt:reload=1:x=10:y=10:fontsize=24:fontcolor=yellow:box=1:boxcolor=black@0.5" output_video.mp4
+
+ffmpeg -framerate 10 -i sample_22_%d.jpg -c:v libx264 -pix_fmt yuv420p -vf "drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:textfile=annotations_22.txt:reload=1:x=10:y=10:fontsize=24:fontcolor=text_w:box=1:boxcolor=black@0.5" output_video.mp4
+
+ffmpeg -framerate 10 -i sample_22_%d.jpg -c:v libx264 -pix_fmt yuv420p -vf "drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:textfile=annotations_22.txt:reload=1:x=10:y=10:fontsize=24:fontcolor_expr=if(eq(t,Crack),'red',if(eq(t,Keyhole pores),'green',if(eq(t,Defect-free),'blue','yellow'))):box=1:boxcolor=black@0.5" -c:v libx264 -pix_fmt yuv420p output_video.mp4
+
