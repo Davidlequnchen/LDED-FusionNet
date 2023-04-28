@@ -2,12 +2,15 @@ import sys
 import cv2
 import numpy as np
 from PyQt5.QtCore import QTimer, Qt
-from PyQt5.QtGui import QImage, QPixmap
+from PyQt5.QtGui import QImage, QPixmap, QScreen, QGuiApplication
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout
 from PyQt5.uic import loadUi
 import os
 import pyqtgraph as pg
 from scipy.io import wavfile
+from pydub import AudioSegment
+from pydub.playback import play
+from PyQt5.QtCore import QThread
 
 
 # Load the annotations
@@ -32,11 +35,13 @@ class ImageSequencePlayer(QMainWindow):
         self.current_frame = 1
         self.total_frames = total_frames
         self.fps = fps
+        self.record = False
+        self.video_writer = None
+
 
         self.audio_waveform_plot = pg.PlotWidget()
         self.audio_waveform_plot.setBackground('w')  # 'w' stands for white
-        self.audio_waveform_plot.setYRange(-4000, 4000) # set the audio range -- denoised
-        # self.audio_waveform_plot.setYRange(-7000, 7000) 
+        self.audio_waveform_plot.setYRange(-4000, 4000) # set the audio range -- denoised; (-7000, 7000) for raw audio
         self.audio_waveform_widget.setLayout(QVBoxLayout())
         self.audio_waveform_widget.layout().addWidget(self.audio_waveform_plot)
 
@@ -45,11 +50,12 @@ class ImageSequencePlayer(QMainWindow):
 
         self.stop_button.clicked.connect(self.stop_button_clicked)
         self.start_button.clicked.connect(self.start_button_clicked)
+        self.record_button.clicked.connect(self.toggle_record)
 
+        self.audio_player_threads = []
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_frame)
-        self.timer.start(1000/self.fps)
 
 
     def slider_value_changed(self, value):
@@ -57,12 +63,50 @@ class ImageSequencePlayer(QMainWindow):
         self.update_frame()
 
 
+
     def stop_button_clicked(self):
         self.timer.stop()
+        # Stop all currently playing audio
+        # for audio_player in self.audio_player_threads:
+        #     audio_player.terminate()
+        # self.audio_player_threads = []
+
+
+    def toggle_record(self):
+        self.record = not self.record
+        if self.record:
+            # Start recording
+            if self.video_writer is None:
+                fourcc = cv2.VideoWriter_fourcc(*'XVID')
+                output_filename = "output_video.avi"
+                self.video_writer = cv2.VideoWriter(output_filename, fourcc, self.fps, (self.width(), self.height()))
+        else:
+            # Stop recording and release the video writer
+            if self.video_writer:
+                self.video_writer.release()
+                self.video_writer = None
+
+
 
     def start_button_clicked(self):
         if not self.timer.isActive():
-            self.timer.start(1000/self.fps)
+            self.timer.start(1000 / self.fps)
+            # Resume audio playback for the current frame
+            # audio_file = self.audio_pattern % (self.current_frame)
+            # audio_player = AudioPlayer(audio_file)
+            # audio_player.start()
+            # self.audio_player_threads.append(audio_player)
+
+
+
+    def closeEvent(self, event):
+        # Stop all audio player threads
+        # for audio_player in self.audio_player_threads:
+        #     audio_player.terminate()
+        # event.accept()
+        if self.video_writer:
+            self.video_writer.release()
+
 
 
     def update_frame(self):
@@ -129,8 +173,51 @@ class ImageSequencePlayer(QMainWindow):
             self.progress_slider.setValue(self.current_frame)
 
             self.current_frame += 1
+
+            # if self.timer.isActive():
+            #     # Start audio playback for the current frame
+            #     audio_player = AudioPlayer(audio_chunk_path)
+            #     audio_player.start()
+            #     self.audio_player_threads.append(audio_player)
+
+                # # Stop and remove the previous audio player
+                # if len(self.audio_player_threads) > 1:
+                #     previous_audio_player = self.audio_player_threads.pop(0)
+                #     previous_audio_player.terminate()
+
+            # if self.record:
+            #     screen = QGuiApplication.primaryScreen()
+            #     screenshot = screen.grabWindow(self.winId())  # Capture a screenshot of the current window
+            #     screenshot = screenshot.toImage().convertToFormat(QImage.Format_RGB888)
+            #     screenshot_array = np.array(screenshot.constBits()).reshape(screenshot.height(), screenshot.width(), 3)
+            #     self.video_writer.write(screenshot_array)
+
+            if self.record:
+                screenshot = QScreen.grabWindow(QGuiApplication.primaryScreen(), self.winId())
+                screenshot = screenshot.toImage().convertToFormat(QImage.Format_RGB888)
+                screenshot_array = np.ndarray((screenshot.height(), screenshot.width(), 3), buffer=screenshot.bits(), dtype=np.uint8, strides=(screenshot.bytesPerLine(), 3, 1))
+                self.video_writer.write(screenshot_array)
+
+
+
+
+                # screenshot = QScreen.grabWindow(self.winId())
+                # screenshot = screenshot.toImage().convertToFormat(QImage.Format_RGB888)
+                # screenshot_array = np.array(screenshot.constBits()).reshape(screenshot.height(), screenshot.width(), 3)
+                # self.video_writer.write(screenshot_array)
+
         else:
             self.timer.stop()
+
+
+class AudioPlayer(QThread):
+    def __init__(self, audio_file):
+        super().__init__()
+        self.audio_file = audio_file
+
+    def run(self):
+        sound = AudioSegment.from_wav(self.audio_file)
+        play(sound)
 
 
 if __name__ == "__main__":
