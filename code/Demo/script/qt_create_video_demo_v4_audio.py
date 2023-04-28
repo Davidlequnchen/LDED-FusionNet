@@ -31,15 +31,39 @@ class ImageSequencePlayer(QMainWindow):
         self.annotations = annotations
         self.current_frame = 1
         self.total_frames = total_frames
+        self.fps = fps
 
         self.audio_waveform_plot = pg.PlotWidget()
+        self.audio_waveform_plot.setBackground('w')  # 'w' stands for white
+        self.audio_waveform_plot.setYRange(-4000, 4000) # set the audio range -- denoised
+        # self.audio_waveform_plot.setYRange(-7000, 7000) 
         self.audio_waveform_widget.setLayout(QVBoxLayout())
         self.audio_waveform_widget.layout().addWidget(self.audio_waveform_plot)
+
+        self.progress_slider.valueChanged.connect(self.slider_value_changed)
+        self.progress_slider.setMaximum(self.total_frames)
+
+        self.stop_button.clicked.connect(self.stop_button_clicked)
+        self.start_button.clicked.connect(self.start_button_clicked)
 
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_frame)
-        self.timer.start(1000/fps)
+        self.timer.start(1000/self.fps)
+
+
+    def slider_value_changed(self, value):
+        self.current_frame = value
+        self.update_frame()
+
+
+    def stop_button_clicked(self):
+        self.timer.stop()
+
+    def start_button_clicked(self):
+        if not self.timer.isActive():
+            self.timer.start(1000/self.fps)
+
 
     def update_frame(self):
         class_colors = {
@@ -53,7 +77,7 @@ class ImageSequencePlayer(QMainWindow):
             image = cv2.imread(image_path)
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             # Resize the image
-            new_width, new_height = 729, 405  # Change these values as needed
+            new_width, new_height = 583, 326  # Change these values as needed
             image = cv2.resize(image, (new_width, new_height), interpolation=cv2.INTER_AREA)
 
             h, w, _ = image.shape
@@ -99,8 +123,11 @@ class ImageSequencePlayer(QMainWindow):
             sample_rate, audio_data = wavfile.read(audio_chunk_path)
 
             self.audio_waveform_plot.clear()
-            self.audio_waveform_plot.plot(audio_data)
-                
+            # self.audio_waveform_plot.plot(audio_data)
+            self.audio_waveform_plot.plot(audio_data, pen=pg.mkPen('b', width=1))  # 'b' stands for blue
+
+            self.progress_slider.setValue(self.current_frame)
+
             self.current_frame += 1
         else:
             self.timer.stop()
