@@ -68,7 +68,7 @@ class ImageSequencePlayer(QMainWindow):
         self.progress_slider.setMaximum(self.total_frames)
         self.stop_button.clicked.connect(self.stop_button_clicked)
         self.start_button.clicked.connect(self.start_button_clicked)
-        self.record_button.clicked.connect(self.toggle_record)
+        # self.record_button.clicked.connect(self.toggle_record)
 
         # self.media_player = QMediaPlayer(self)
         # self.media_player.setNotifyInterval(1000 // fps)
@@ -200,21 +200,14 @@ class ImageSequencePlayer(QMainWindow):
                 self.predicted_class_label.setText(predicted_class_name)
                 self.layer_number_label.setText(f"Layer number: {layer_number}")
             
+            timestamp = self.current_frame / self.fps
+            self.timestamp_label.setText(f"Timestamp: {timestamp:.2f}s")
 
 
             # Load and display the audio waveform
-            # audio_chunk_path = self.audio_pattern % self.current_frame
-            # sample_rate, audio_data = wavfile.read(audio_chunk_path)
-
-            # self.audio_waveform_plot.clear()
-            # # self.audio_waveform_plot.plot(audio_data)
-            # self.audio_waveform_plot.plot(audio_data, pen=pg.mkPen('b', width=1))  # 'b' stands for blue
-
             audio_data = self.audio_data_cache[self.current_frame]
             self.audio_waveform_plot.clear()
             self.audio_waveform_plot.plot(audio_data, pen=pg.mkPen('b', width=1))  # 'b' stands for blue
-
-
 
             self.progress_slider.setValue(self.current_frame)
 
@@ -243,10 +236,6 @@ class ImageSequencePlayer(QMainWindow):
                 screenshot = screenshot.toImage().convertToFormat(QImage.Format_RGB888)
                 screenshot_array = np.ndarray((screenshot.height(), screenshot.width(), 3), buffer=screenshot.bits(), dtype=np.uint8, strides=(screenshot.bytesPerLine(), 3, 1))
                 self.video_writer.write(screenshot_array)
-
-
-
-
                 # screenshot = QScreen.grabWindow(self.winId())
                 # screenshot = screenshot.toImage().convertToFormat(QImage.Format_RGB888)
                 # screenshot_array = np.array(screenshot.constBits()).reshape(screenshot.height(), screenshot.width(), 3)
