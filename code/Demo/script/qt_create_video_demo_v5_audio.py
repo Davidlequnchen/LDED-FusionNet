@@ -69,7 +69,7 @@ class ImageSequencePlayer(QMainWindow):
         self.progress_slider.setMaximum(self.total_frames)
         self.stop_button.clicked.connect(self.stop_button_clicked)
         self.start_button.clicked.connect(self.start_button_clicked)
-        self.record_button.clicked.connect(self.toggle_record)
+        # self.record_button.clicked.connect(self.toggle_record)
 
         self.media_player = QMediaPlayer(self)
         self.media_player.setNotifyInterval(1000 // fps)

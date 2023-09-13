@@ -258,7 +258,7 @@ class AudioPlayer(QThread):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     
-    sample_index = 21
+    sample_index = 23
 
     Dataset = f'/home/chenlequn/Dataset/LDED_acoustic_visual_monitoring_dataset/segmented_25Hz/{sample_index}'
     image_dir = os.path.join(Dataset, "images")
