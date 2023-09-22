@@ -74,7 +74,7 @@ class MultimodalDataset(Dataset):
     
     
     def _get_audio_sample_path(self, index):
-        sample_number = int(self.annotations.iloc[index, 8])  # Get the sample number from the 8th column
+        sample_number = int(self.annotations.iloc[index, 6])  # Get the sample number from the 8th column
         audio_file_name = self.annotations.iloc[index, 1]
         audio_dir = self.audio_dir[self.samples.index(sample_number)]  # Find the correct audio directory
         path = os.path.join(audio_dir, audio_file_name)
@@ -82,7 +82,7 @@ class MultimodalDataset(Dataset):
 
     
     def _get_image_sample_path(self, index):
-        sample_number = int(self.annotations.iloc[index, 8])  # Get the sample number from the 8th column
+        sample_number = int(self.annotations.iloc[index, 6])  # Get the sample number from the 8th column
         image_file_name = self.annotations.iloc[index, 2]
         image_dir = self.image_dir[self.samples.index(sample_number)]  # Find the correct image directory
         path = os.path.join(image_dir, image_file_name)
@@ -90,7 +90,7 @@ class MultimodalDataset(Dataset):
 
 
     def _get_sample_label(self, index):
-        class_name = self.annotations.iloc[index, 5] # 3 for four classes; 5 for general prediction
+        class_name = self.annotations.iloc[index, 3] # 3 for four classes; 4 for general prediction
         return self.class_to_idx[class_name]
 
 
@@ -209,28 +209,13 @@ class LDEDAudioDataset(torch.utils.data.Dataset):
 
 if __name__ == "__main__":
 
-    '''
-    Multimodal_dataset_PATH = os.path.join("/home/chenlequn/Dataset/LDED_acoustic_visual_monitoring_dataset")
-    Image_path = os.path.join(Multimodal_dataset_PATH,'Video', 'segmented',  'images')
-    Audio_raw_seg_PATH = os.path.join(Multimodal_dataset_PATH, 'Video', 'segmented', 'raw_audio')
-    Audio_equalized_seg_PATH = os.path.join(Multimodal_dataset_PATH, 'Video', 'segmented', 'equalized_audio')
-    Audio_bandpassed_seg_PATH = os.path.join(Multimodal_dataset_PATH, 'Video', 'segmented', 'bandpassed_audio')
-    Audio_denoised_seg_PATH = os.path.join(Multimodal_dataset_PATH,'Video', 'segmented',  'denoised_audio')
-
-    ANNOTATIONS_FILE = os.path.join(Multimodal_dataset_PATH, 'Video', 'segmented', "visual_acoustic_dataset_annotations_v2.csv")
-    annotation_df = pd.read_csv(ANNOTATIONS_FILE)
-
-    ## select denoised audio signal
-    AUDIO_DIR = Audio_raw_seg_PATH
-    VISON_DIR = Image_path
-    '''
 
     SAMPLE_RATE = 44100
 
     def get_sample_directories(base_path, sample_numbers):
         sample_directories = []
         for sample_number in sample_numbers:
-            sample_directories.append(os.path.join(base_path, f'segmented_25Hz/{sample_number}'))
+            sample_directories.append(os.path.join(base_path, f'segmented_25Hz_buffered/{sample_number}'))
         return sample_directories
 
     Multimodal_dataset_PATH = "/home/chenlequn/Dataset/LDED_acoustic_visual_monitoring_dataset"
@@ -308,8 +293,8 @@ if __name__ == "__main__":
     print(f"There are {len(visiondataset)} samples in the visiondataset dataset.")
     print(f"There are {len(audiodataset)} samples in the audiodataset dataset.")
     multimodal_inputs, label = mmd[21]
-    image_input_vision, label_vision = visiondataset[22]
-    audio_input_audioset, label_audio = audiodataset[22]
+    # image_input_vision, label_vision = visiondataset[22]
+    # audio_input_audioset, label_audio = audiodataset[22]
 
     # test_dataloader = DataLoader(visiondataset, batch_size=32, shuffle=False, num_workers=2)
     # all_targets_ohe = []
@@ -324,8 +309,8 @@ if __name__ == "__main__":
     # all_targets_ohe = np.concatenate(all_targets_ohe, axis=0)
 
     print (multimodal_inputs[0].shape, multimodal_inputs[1].shape, label)
-    print (image_input_vision.shape, label_vision)
-    print (audio_input_audioset.shape, label_audio)
+    # print (image_input_vision.shape, label_vision)
+    # print (audio_input_audioset.shape, label_audio)
     # (1, 32, 18) for 100 ms, (1, 32, 7) for 40 ms, 25 Hz
     # print ("all target enoded: " + str(all_targets))
     # print ("one-hot target enoded: " + str(all_targets_ohe))
