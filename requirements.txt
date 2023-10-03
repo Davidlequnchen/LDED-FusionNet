@@ -32,3 +32,6 @@ xgboost==1.7.6
 lightgbm==4.1.0
 itsdangerous==2.0.1
 requests==2.31.0
+pyarrow
+fastparquet
+
