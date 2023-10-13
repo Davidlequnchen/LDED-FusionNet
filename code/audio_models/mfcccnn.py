@@ -23,7 +23,7 @@ import torch.nn.functional as F
 
 
 class MFCCCNN(nn.Module):
-    def __init__(self):
+    def __init__(self, num_classes=4):
         super(MFCCCNN, self).__init__()
         self.conv1 = nn.Conv2d(in_channels=1, out_channels=32, kernel_size=3, padding=1, stride=1)
         self.pool1 = nn.MaxPool2d(kernel_size=(2, 1), stride=(2, 1))
@@ -34,9 +34,9 @@ class MFCCCNN(nn.Module):
         self.pool3 = nn.MaxPool2d(kernel_size=(2, 1), stride=(2, 1))
         self.dropout2 = nn.Dropout(p=0.2)
         self.flatten = nn.Flatten()
-        self.fc1 = nn.Linear(in_features=28* 128, out_features=128) #72*128 for 100ms; 28*128 for 40ms
+        self.fc1 = nn.Linear(in_features=28* 128, out_features=128) 
         self.dropout3 = nn.Dropout(p=0.5)
-        self.fc2 = nn.Linear(in_features=128, out_features=3)
+        self.fc2 = nn.Linear(in_features=128, out_features=num_classes)
         self.softmax = nn.Softmax(dim=1)
 
     def forward(self, x):

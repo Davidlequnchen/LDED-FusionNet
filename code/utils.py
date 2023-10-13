@@ -100,7 +100,6 @@ def progress_bar(current, total, msg=None):
     sys.stdout.flush()
 
 
-
 def format_time(seconds):
     days = int(seconds / 3600/24)
     seconds = seconds - days*3600*24
@@ -328,7 +327,7 @@ def plot_confusion_matrix_sns(y_true, y_pred, classes):
     
 ## Define function to get the confusion matrix and print out the plot as well
 def conf_matrix(y_true, y_pred, classes):
-    cm = confusion_matrix(y_true, y_pred)
+    cm = confusion_matrix(y_true, y_pred, labels=classes)
     
     # convert to percentage and plot the confusion matrix
     cm_pct = cm.astype(float) / cm.sum(axis =1)[:,np.newaxis]

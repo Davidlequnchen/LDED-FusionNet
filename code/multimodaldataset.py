@@ -74,23 +74,23 @@ class MultimodalDataset(Dataset):
     
     
     def _get_audio_sample_path(self, index):
-        sample_number = int(self.annotations.iloc[index, 6])  # Get the sample number from the 8th column
-        audio_file_name = self.annotations.iloc[index, 1]
+        sample_number = int(self.annotations.iloc[index, 7])  # Get the sample number from the 8th column
+        audio_file_name = self.annotations.iloc[index, 2]
         audio_dir = self.audio_dir[self.samples.index(sample_number)]  # Find the correct audio directory
         path = os.path.join(audio_dir, audio_file_name)
         return path
 
     
     def _get_image_sample_path(self, index):
-        sample_number = int(self.annotations.iloc[index, 6])  # Get the sample number from the 8th column
-        image_file_name = self.annotations.iloc[index, 2]
+        sample_number = int(self.annotations.iloc[index, 7])  # Get the sample number from the 8th column
+        image_file_name = self.annotations.iloc[index, 3]
         image_dir = self.image_dir[self.samples.index(sample_number)]  # Find the correct image directory
         path = os.path.join(image_dir, image_file_name)
         return path
 
 
     def _get_sample_label(self, index):
-        class_name = self.annotations.iloc[index, 3] # 3 for four classes; 4 for general prediction
+        class_name = self.annotations.iloc[index, 5] # 4 for four classes; 5 for general prediction
         return self.class_to_idx[class_name]
 
 
@@ -131,8 +131,8 @@ class LDEDVisionDataset(torch.utils.data.Dataset):
     
     
     def _get_image_sample_path(self, index):
-        sample_number = int(self.annotations.iloc[index, 8])  # Get the sample number from the 8th column
-        image_file_name = self.annotations.iloc[index, 2]
+        sample_number = int(self.annotations.iloc[index, 7])  # Get the sample number from the 8th column
+        image_file_name = self.annotations.iloc[index, 3]
         image_dir = self.image_directories[self.samples.index(sample_number)]  # Find the correct image directory
         path = os.path.join(image_dir, image_file_name)
         return path
@@ -194,8 +194,8 @@ class LDEDAudioDataset(torch.utils.data.Dataset):
         return signal_mel_spectrogram, label
     
     def _get_audio_sample_path(self, index):
-        sample_number = int(self.annotations.iloc[index, 8])  # Get the sample number from the 8th column
-        audio_file_name = self.annotations.iloc[index, 1]
+        sample_number = int(self.annotations.iloc[index, 7])  # Get the sample number from the 8th column
+        audio_file_name = self.annotations.iloc[index, 2]
         audio_dir = self.audio_directories[self.samples.index(sample_number)]  # Find the correct audio directory
         path = os.path.join(audio_dir, audio_file_name)
         return path
@@ -206,33 +206,53 @@ class LDEDAudioDataset(torch.utils.data.Dataset):
 
 
 
+def get_sample_directories_from_df(df, Dataset_path):
+    # Extract unique sample numbers from the DataFrame
+    unique_sample_numbers = df['Sample number'].unique()
+    
+    # Generate the full paths for image and audio directories
+    image_directories = [os.path.join(Dataset_path, str(sample_number), 'images') for sample_number in unique_sample_numbers]
+    audio_directories = [os.path.join(Dataset_path, str(sample_number), 'raw_audio') for sample_number in unique_sample_numbers]
+    
+    return image_directories, audio_directories
+
+
 
 if __name__ == "__main__":
 
 
     SAMPLE_RATE = 44100
 
-    def get_sample_directories(base_path, sample_numbers):
-        sample_directories = []
-        for sample_number in sample_numbers:
-            sample_directories.append(os.path.join(base_path, f'segmented_25Hz_buffered/{sample_number}'))
-        return sample_directories
+    # def get_sample_directories(base_path, sample_numbers):
+    #     sample_directories = []
+    #     for sample_number in sample_numbers:
+    #         sample_directories.append(os.path.join(base_path, f'25Hz/{sample_number}'))
+    #     return sample_directories
 
     Multimodal_dataset_PATH = "/home/chenlequn/Dataset/LDED_acoustic_visual_monitoring_dataset"
-    samples = [21, 22, 23, 26]
-    sample_directories = get_sample_directories(Multimodal_dataset_PATH, samples)
+    Dataset_path = os.path.join(Multimodal_dataset_PATH, f'25Hz')
+    
+    samples = [21, 22, 23, 24, 26, 32]
+    # sample_directories = get_sample_directories(Multimodal_dataset_PATH, samples)
 
-    # Get lists of image and audio directories for each sample
-    image_directories = [os.path.join(sample_dir, 'images') for sample_dir in sample_directories]
-    audio_directories = [os.path.join(sample_dir, 'denoised_audio') for sample_dir in sample_directories]
+    # # Get lists of image and audio directories for each sample
+    # image_directories = [os.path.join(sample_dir, 'images') for sample_dir in sample_directories]
+    # audio_directories = [os.path.join(sample_dir, 'raw_audio') for sample_dir in sample_directories]
 
-    # Combine all annotation files into one DataFrame
-    all_annotation_dfs = []
-    for sample_dir, sample_number in zip(sample_directories, samples):
-        annotation_file = os.path.join(sample_dir, f'annotations_{sample_number}.csv')  # Update the file name
-        annotation_df = pd.read_csv(annotation_file)
-        all_annotation_dfs.append(annotation_df)
-    combined_annotation_df = pd.concat(all_annotation_dfs)
+    df_multimodal = pd.read_hdf(os.path.join(Dataset_path, 'spatiotemporal_fused_multimodal.h5'), key='df')
+    df_multimodal = df_multimodal.dropna(subset=['class_name'])
+
+    samples = [21, 22, 23, 24, 26, 32]
+    image_directories, audio_directories = get_sample_directories_from_df(df_multimodal, Dataset_path)
+
+
+    # # Combine all annotation files into one DataFrame
+    # all_annotation_dfs = []
+    # for sample_dir, sample_number in zip(sample_directories, samples):
+    #     annotation_file = os.path.join(sample_dir, f'annotations_{sample_number}.csv')  # Update the file name
+    #     annotation_df = pd.read_csv(annotation_file)
+    #     all_annotation_dfs.append(annotation_df)
+    # combined_annotation_df = pd.concat(all_annotation_dfs)
 
 
 
@@ -259,9 +279,8 @@ if __name__ == "__main__":
     MFCCs = torchaudio.transforms.MFCC(sample_rate=SAMPLE_RATE,n_mfcc=20)
     # spectral_centroid = torchaudio.transforms.SpectralCentroid(sample_rate=SAMPLE_RATE, hop_length=256)
     
-
                 
-    mmd = MultimodalDataset(combined_annotation_df,
+    mmd = MultimodalDataset(df_multimodal,
                             image_directories,
                             audio_directories,
                             samples,
@@ -273,13 +292,13 @@ if __name__ == "__main__":
                             # NUM_SAMPLES,
                             device)
 
-    visiondataset = LDEDVisionDataset(combined_annotation_df,
+    visiondataset = LDEDVisionDataset(df_multimodal,
                                       image_directories,
                                       samples,
                                       img_transform,
                                       device)
 
-    audiodataset = LDEDAudioDataset(combined_annotation_df,
+    audiodataset = LDEDAudioDataset(df_multimodal,
                                     audio_directories,
                                     samples,
                                     mel_spectrogram,
