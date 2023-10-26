@@ -23,7 +23,7 @@ import torch.nn.functional as F
 
 
 class MFCCCNN(nn.Module):
-    def __init__(self, num_classes=4):
+    def __init__(self, num_classes=3):
         super(MFCCCNN, self).__init__()
         self.conv1 = nn.Conv2d(in_channels=1, out_channels=32, kernel_size=3, padding=1, stride=1)
         self.pool1 = nn.MaxPool2d(kernel_size=(2, 1), stride=(2, 1))
