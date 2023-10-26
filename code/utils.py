@@ -335,7 +335,34 @@ def conf_matrix(y_true, y_pred, classes):
     print(cm)
     plot_confusion_matrix(cm_pct, classes)
 
+def show_confusion_matrix(y_true, y_pred, classes=None, classes_categorical=None, normalize=None, figsize=(10, 10), 
+                          dpi=600, fontsize=10, axis_fontsize=14, tick_size=12):
+    cm = confusion_matrix(y_true, y_pred, normalize=normalize, labels=classes)
+    
+    if normalize == 'true':
+        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+    
+    fig, ax = plt.subplots(figsize=figsize, dpi=dpi)
+    cax = ax.matshow(cm, cmap=plt.cm.Blues)
+    
+    cbar = plt.colorbar(cax, ax=ax, shrink=0.65)
+    
+    if classes:
+        tick_marks = np.arange(len(classes))
+        plt.xticks(tick_marks, classes_categorical, rotation=45, fontsize=tick_size, ha='left')
+        plt.yticks(tick_marks, classes_categorical, fontsize=tick_size)
+    
+    thresh = cm.max() / 2.
+    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+        plt.text(j, i, format(cm[i, j], '.2f' if normalize else 'd'),
+                 horizontalalignment="center",
+                 color="white" if cm[i, j] > thresh else "black",
+                 fontsize=fontsize)
+    
+    ax.set_xlabel('Predicted label', fontsize=axis_fontsize)
+    ax.set_ylabel('True label', fontsize=axis_fontsize)
 
+    
 def stratified_k_fold_torch(test_dataloader, k=5, seed=0):
     # Create a list to store the k folds of dataloaders
     fold_dataloaders = []
@@ -474,6 +501,47 @@ def roc_auc_evaluation(model, dataloader, device, classes, classifier_name, mode
     auc_std = auc_score_array.std()
     
     return auc_mean, auc_std
+
+
+def plot_data_distribution(data, variable, title, filename, figure_size=(7, 6)):
+    # Initialize the plot
+    fig, ax = plt.subplots(figsize=figure_size)
+    
+    # Create the countplot
+    sns.countplot(x=variable, data=data, palette='Set1', saturation=0.7, edgecolor='k', linewidth=1.5, ax=ax, alpha = 0.9)
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=40, ha="right")
+    
+    # Add percentages above each bar
+    total = len(data)
+    max_height = 0
+    for p in ax.patches:
+        max_height = max(max_height, p.get_height())
+        percentage = f'{100 * p.get_height() / total:.1f}%'
+        x = p.get_x() + p.get_width() / 2
+        y = p.get_height()
+        ax.annotate(percentage, (x, y), ha='center', va='bottom')
+    
+    # Extend the y-axis for better visibility of annotations
+    ax.set_ylim([0, max_height * 1.2])
+    
+    # Set labels and title
+    ax.set_title(title, fontsize=18, pad=14)
+    ax.set_xlabel("Categories", fontsize=20, labelpad=12)
+    ax.set_ylabel("Data volume", fontsize=20, labelpad=10)
+    ax.tick_params(labelsize=15)
+    
+    # Add grid
+    ax.grid(True, which='both', axis='y', linestyle='dotted', linewidth=0.5, alpha=0.7, color='black')
+    
+    # Show all four edges of the plot
+    ax.spines['top'].set_visible(True)
+    ax.spines['right'].set_visible(True)
+    ax.spines['bottom'].set_visible(True)
+    ax.spines['left'].set_visible(True)
+    
+    # Show the plot
+    plt.tight_layout()
+    
 
 
 
