@@ -48,10 +48,16 @@ class MultimodalDataset(Dataset):
         #     'Crack': 2,
         #     'Keyhole pores': 3
         # }
+        # self.class_to_idx = {
+        #     'Laser-off': 0,
+        #     'Defect-free': 1,
+        #     'Defective': 2,
+        # }
         self.class_to_idx = {
-            'Laser-off': 0,
-            'Defect-free': 1,
-            'Defective': 2,
+            'Defect-free': 0,
+            'Keyhole pores': 1,
+            'Laser defocus': 2,
+            'Laser-off': 3,
         }
 
     def __len__(self):
@@ -74,7 +80,7 @@ class MultimodalDataset(Dataset):
     
     
     def _get_audio_sample_path(self, index):
-        sample_number = int(self.annotations.iloc[index, 7])  # Get the sample number from the 8th column
+        sample_number = int(self.annotations.iloc[index, 7])  # Get the sample number from the 7th column
         audio_file_name = self.annotations.iloc[index, 2]
         audio_dir = self.audio_dir[self.samples.index(sample_number)]  # Find the correct audio directory
         path = os.path.join(audio_dir, audio_file_name)
@@ -82,7 +88,7 @@ class MultimodalDataset(Dataset):
 
     
     def _get_image_sample_path(self, index):
-        sample_number = int(self.annotations.iloc[index, 7])  # Get the sample number from the 8th column
+        sample_number = int(self.annotations.iloc[index, 7])  # Get the sample number from the 7th column
         image_file_name = self.annotations.iloc[index, 3]
         image_dir = self.image_dir[self.samples.index(sample_number)]  # Find the correct image directory
         path = os.path.join(image_dir, image_file_name)
@@ -90,7 +96,7 @@ class MultimodalDataset(Dataset):
 
 
     def _get_sample_label(self, index):
-        class_name = self.annotations.iloc[index, 5] # 4 for four classes; 5 for general prediction
+        class_name = self.annotations.iloc[index, 8] # class column
         return self.class_to_idx[class_name]
 
 
@@ -113,10 +119,16 @@ class LDEDVisionDataset(torch.utils.data.Dataset):
         #     'Crack': 2,
         #     'Keyhole pores': 3
         # }
+        # self.class_to_idx = {
+        #     'Laser-off': 0,
+        #     'Defect-free': 1,
+        #     'Defective': 2,
+        # }
         self.class_to_idx = {
-            'Laser-off': 0,
-            'Defect-free': 1,
-            'Defective': 2,
+            'Defect-free': 0,
+            'Keyhole pores': 1,
+            'Laser defocus': 2,
+            'Laser-off': 3,
         }
 
     def __len__(self):
@@ -138,7 +150,7 @@ class LDEDVisionDataset(torch.utils.data.Dataset):
         return path
 
     def _get_sample_label(self, index):
-        class_name = self.annotations.iloc[index, 5]
+        class_name = self.annotations.iloc[index, 8]
         return self.class_to_idx[class_name]
     
 
@@ -167,10 +179,16 @@ class LDEDAudioDataset(torch.utils.data.Dataset):
         #     'Crack': 2,
         #     'Keyhole pores': 3
         # }
+        # self.class_to_idx = {
+        #     'Laser-off': 0,
+        #     'Defect-free': 1,
+        #     'Defective': 2,
+        # }
         self.class_to_idx = {
-            'Laser-off': 0,
-            'Defect-free': 1,
-            'Defective': 2,
+            'Defect-free': 0,
+            'Keyhole pores': 1,
+            'Laser defocus': 2,
+            'Laser-off': 3,
         }
 
     def __len__(self):
@@ -201,7 +219,7 @@ class LDEDAudioDataset(torch.utils.data.Dataset):
         return path
 
     def _get_sample_label(self, index):
-        class_name = self.annotations.iloc[index, 5]
+        class_name = self.annotations.iloc[index, 8]
         return self.class_to_idx[class_name]
 
 

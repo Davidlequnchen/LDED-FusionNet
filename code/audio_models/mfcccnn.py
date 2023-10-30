@@ -23,7 +23,7 @@ import torch.nn.functional as F
 
 
 class MFCCCNN(nn.Module):
-    def __init__(self, num_classes=3, dropout_rate=0.5):
+    def __init__(self, num_classes=4, dropout_rate=0.5):
         super(MFCCCNN, self).__init__()
         self.conv1 = nn.Conv2d(in_channels=1, out_channels=32, kernel_size=3, padding=1, stride=1)
         self.pool1 = nn.MaxPool2d(kernel_size=(2, 1), stride=(2, 1))
@@ -60,6 +60,6 @@ class MFCCCNN(nn.Module):
 if __name__ == "__main__":
     cnn = MFCCCNN()
     print (cnn)
-    summary(cnn.cuda(), (1, 32, 18)) # mel-spectrogram - (1,32,18) 128*8 for 100 ms; 
+    summary(cnn.cuda(), (1, 32, 7)) # mel-spectrogram - (1,32,18) 128*8 for 100 ms; 
 
 

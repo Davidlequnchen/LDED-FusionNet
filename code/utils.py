@@ -284,10 +284,10 @@ def plot_confusion_matrix(cm, classes,
     This function prints and plots the confusion matrix.
     Normalization can be applied by setting `normalize=True`.
     """
-    plt.figure(figsize=(7,7))
+    plt.figure(figsize=(8, 8))
     im_ratio = cm.shape[1]/cm.shape[0]
     plt.imshow(cm, interpolation='nearest', cmap=cmap)
-    plt.title(title, fontsize=20, pad=12)
+    plt.title(title, fontsize=18, pad=12)
     tick_marks = np.arange(len(classes))
     plt.xticks(tick_marks, classes, rotation=90, fontsize=12)
     plt.yticks(tick_marks, classes, fontsize=12)
@@ -302,14 +302,13 @@ def plot_confusion_matrix(cm, classes,
 
     plt.ylabel('Ground Truth', fontsize=20, labelpad =12)
     plt.xlabel('Predicted', fontsize=20, labelpad =12)
-    plt.xticks(fontsize=16,  rotation=45, ha='right')
+    plt.xticks(fontsize=16,  rotation=30, ha='right')
     plt.yticks(fontsize=16)
-    cbar = plt.colorbar(orientation="vertical", pad=0.1, ticks=[0.1, 0.4, 0.8], fraction=0.045*im_ratio)
+    cbar = plt.colorbar(orientation="vertical", pad=0.1, ticks=[0, 0.5, 1], fraction=0.045*im_ratio)
     cbar.ax.tick_params(labelsize=14)
     cbar.ax.set_title('Accuracy',fontsize=16, pad = 12)
     plt.tight_layout()
 
-    # plt.show()
     
 def plot_confusion_matrix_sns(y_true, y_pred, classes):
     plt.figure(figsize=(10, 7))
@@ -326,14 +325,16 @@ def plot_confusion_matrix_sns(y_true, y_pred, classes):
     
     
 ## Define function to get the confusion matrix and print out the plot as well
-def conf_matrix(y_true, y_pred, classes):
-    cm = confusion_matrix(y_true, y_pred, labels=classes)
+def conf_matrix(y_true, y_pred, classes=["Laser-off",'Defect-free','Cracks','Keyhole pores']):
+    cm = confusion_matrix(y_true, y_pred)
     
     # convert to percentage and plot the confusion matrix
     cm_pct = cm.astype(float) / cm.sum(axis =1)[:,np.newaxis]
-
+    
+    # classes = le.classes_
     print(cm)
     plot_confusion_matrix(cm_pct, classes)
+
 
 def show_confusion_matrix(y_true, y_pred, classes=None, classes_categorical=None, normalize=None, figsize=(10, 10), 
                           dpi=600, fontsize=10, axis_fontsize=14, tick_size=12):
