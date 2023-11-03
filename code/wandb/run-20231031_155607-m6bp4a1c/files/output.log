@@ -1,0 +1,15 @@
+/home/chenlequn/anaconda3/envs/torch/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/chenlequn/anaconda3/envs/torch/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/chenlequn/anaconda3/envs/torch/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/chenlequn/anaconda3/envs/torch/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/chenlequn/anaconda3/envs/torch/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+		Accuracy: Mean = 0.7513698578935959, Std = 0.00696649202778455
+		F1 Score: Mean = 0.7084181545138883, Std = 0.0068615467691055245
+		Precision: Mean = 0.6786020229985456, Std = 0.007075650649933642
+		Recall: Mean = 0.7513698578935959, Std = 0.00696649202778455
+		ROC-AUC: Mean = 0.9160216724708764, Std = 0.0031722379777851025

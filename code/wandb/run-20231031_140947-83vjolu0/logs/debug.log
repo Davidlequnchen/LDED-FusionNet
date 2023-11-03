@@ -1,0 +1,74 @@
+2023-10-31 14:09:47,146 INFO    MainThread:138925 [wandb_setup.py:_flush():76] Current SDK version is 0.15.12
+2023-10-31 14:09:47,146 INFO    MainThread:138925 [wandb_setup.py:_flush():76] Configure stats pid to 138925
+2023-10-31 14:09:47,146 INFO    MainThread:138925 [wandb_setup.py:_flush():76] Loading settings from /home/chenlequn/.config/wandb/settings
+2023-10-31 14:09:47,146 INFO    MainThread:138925 [wandb_setup.py:_flush():76] Loading settings from /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/settings
+2023-10-31 14:09:47,146 INFO    MainThread:138925 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2023-10-31 14:09:47,146 INFO    MainThread:138925 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2023-10-31 14:09:47,146 INFO    MainThread:138925 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2023-10-31 14:09:47,146 INFO    MainThread:138925 [wandb_setup.py:_flush():76] Applying login settings: {'api_key': '***REDACTED***'}
+2023-10-31 14:09:47,146 INFO    MainThread:138925 [wandb_init.py:_log_setup():528] Logging user logs to /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_140947-83vjolu0/logs/debug.log
+2023-10-31 14:09:47,146 INFO    MainThread:138925 [wandb_init.py:_log_setup():529] Logging internal logs to /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_140947-83vjolu0/logs/debug-internal.log
+2023-10-31 14:09:47,147 INFO    MainThread:138925 [wandb_init.py:_jupyter_setup():474] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x7fcb83afd1c0>
+2023-10-31 14:09:47,147 INFO    MainThread:138925 [wandb_init.py:init():568] calling init triggers
+2023-10-31 14:09:47,147 INFO    MainThread:138925 [wandb_init.py:init():575] wandb.init called with sweep_config: {}
+config: {}
+2023-10-31 14:09:47,147 INFO    MainThread:138925 [wandb_init.py:init():618] starting backend
+2023-10-31 14:09:47,147 INFO    MainThread:138925 [wandb_init.py:init():622] setting up manager
+2023-10-31 14:09:47,149 INFO    MainThread:138925 [backend.py:_multiprocessing_setup():105] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2023-10-31 14:09:47,151 INFO    MainThread:138925 [wandb_init.py:init():628] backend started and connected
+2023-10-31 14:09:47,162 INFO    MainThread:138925 [wandb_run.py:_label_probe_notebook():1276] probe notebook
+2023-10-31 14:09:47,163 INFO    MainThread:138925 [wandb_init.py:init():720] updated telemetry
+2023-10-31 14:09:47,262 INFO    MainThread:138925 [wandb_init.py:init():753] communicating run to backend with 90.0 second timeout
+2023-10-31 14:09:47,904 INFO    MainThread:138925 [wandb_run.py:_on_init():2220] communicating current version
+2023-10-31 14:09:48,054 INFO    MainThread:138925 [wandb_run.py:_on_init():2229] got version response 
+2023-10-31 14:09:48,054 INFO    MainThread:138925 [wandb_init.py:init():804] starting run threads in backend
+2023-10-31 14:09:55,808 INFO    MainThread:138925 [wandb_run.py:_console_start():2199] atexit reg
+2023-10-31 14:09:55,808 INFO    MainThread:138925 [wandb_run.py:_redirect():2054] redirect: wrap_raw
+2023-10-31 14:09:55,809 INFO    MainThread:138925 [wandb_run.py:_redirect():2119] Wrapping output streams.
+2023-10-31 14:09:55,809 INFO    MainThread:138925 [wandb_run.py:_redirect():2144] Redirects installed.
+2023-10-31 14:09:55,810 INFO    MainThread:138925 [wandb_init.py:init():845] run started, returning control to user process
+2023-10-31 14:09:55,814 INFO    MainThread:138925 [jupyter.py:save_ipynb():373] not saving jupyter notebook
+2023-10-31 14:09:55,815 INFO    MainThread:138925 [wandb_init.py:_pause_backend():438] pausing backend
+2023-10-31 14:10:35,435 INFO    MainThread:138925 [wandb_init.py:_resume_backend():443] resuming backend
+2023-10-31 14:10:35,880 INFO    MainThread:138925 [jupyter.py:save_ipynb():373] not saving jupyter notebook
+2023-10-31 14:10:35,880 INFO    MainThread:138925 [wandb_init.py:_pause_backend():438] pausing backend
+2023-10-31 14:10:36,797 INFO    MainThread:138925 [wandb_init.py:_resume_backend():443] resuming backend
+2023-10-31 14:10:36,901 INFO    MainThread:138925 [jupyter.py:save_ipynb():373] not saving jupyter notebook
+2023-10-31 14:10:36,901 INFO    MainThread:138925 [wandb_init.py:_pause_backend():438] pausing backend
+2023-10-31 14:10:37,776 INFO    MainThread:138925 [wandb_init.py:_resume_backend():443] resuming backend
+2023-10-31 14:10:37,813 INFO    MainThread:138925 [jupyter.py:save_ipynb():373] not saving jupyter notebook
+2023-10-31 14:10:37,813 INFO    MainThread:138925 [wandb_init.py:_pause_backend():438] pausing backend
+2023-10-31 14:10:38,780 INFO    MainThread:138925 [wandb_init.py:_resume_backend():443] resuming backend
+2023-10-31 14:10:38,824 INFO    MainThread:138925 [jupyter.py:save_ipynb():373] not saving jupyter notebook
+2023-10-31 14:10:38,825 INFO    MainThread:138925 [wandb_init.py:_pause_backend():438] pausing backend
+2023-10-31 14:10:41,616 INFO    MainThread:138925 [wandb_init.py:_resume_backend():443] resuming backend
+2023-10-31 14:10:41,619 INFO    MainThread:138925 [jupyter.py:save_ipynb():373] not saving jupyter notebook
+2023-10-31 14:10:41,620 INFO    MainThread:138925 [wandb_init.py:_pause_backend():438] pausing backend
+2023-10-31 14:11:44,927 INFO    MainThread:138925 [wandb_init.py:_resume_backend():443] resuming backend
+2023-10-31 14:11:44,931 INFO    MainThread:138925 [jupyter.py:save_ipynb():373] not saving jupyter notebook
+2023-10-31 14:11:44,932 INFO    MainThread:138925 [wandb_init.py:_pause_backend():438] pausing backend
+2023-10-31 14:16:24,689 INFO    MainThread:138925 [wandb_init.py:_resume_backend():443] resuming backend
+2023-10-31 14:16:24,777 INFO    MainThread:138925 [wandb_setup.py:_flush():76] Current SDK version is 0.15.12
+2023-10-31 14:16:24,777 INFO    MainThread:138925 [wandb_setup.py:_flush():76] Configure stats pid to 138925
+2023-10-31 14:16:24,777 INFO    MainThread:138925 [wandb_setup.py:_flush():76] Loading settings from /home/chenlequn/.config/wandb/settings
+2023-10-31 14:16:24,777 INFO    MainThread:138925 [wandb_setup.py:_flush():76] Loading settings from /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/settings
+2023-10-31 14:16:24,778 INFO    MainThread:138925 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2023-10-31 14:16:24,778 INFO    MainThread:138925 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2023-10-31 14:16:24,778 INFO    MainThread:138925 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2023-10-31 14:16:24,778 INFO    MainThread:138925 [wandb_setup.py:_flush():76] Applying login settings: {'api_key': '***REDACTED***'}
+2023-10-31 14:16:24,778 INFO    MainThread:138925 [wandb_init.py:_log_setup():528] Logging user logs to /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_141624-7ve1r73a/logs/debug.log
+2023-10-31 14:16:24,778 INFO    MainThread:138925 [wandb_init.py:_log_setup():529] Logging internal logs to /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_141624-7ve1r73a/logs/debug-internal.log
+2023-10-31 14:16:24,778 INFO    MainThread:138925 [wandb_init.py:init():568] calling init triggers
+2023-10-31 14:16:24,778 INFO    MainThread:138925 [wandb_init.py:init():575] wandb.init called with sweep_config: {}
+config: {}
+2023-10-31 14:16:24,778 INFO    MainThread:138925 [wandb_init.py:init():593] re-initializing run, found existing run on stack: 83vjolu0
+2023-10-31 14:16:24,780 INFO    MainThread:138925 [wandb_run.py:_finish():1934] finishing run lequn/AudioVisual_ML_ablation_study/83vjolu0
+2023-10-31 14:16:24,780 INFO    MainThread:138925 [jupyter.py:save_history():445] not saving jupyter history
+2023-10-31 14:16:24,780 INFO    MainThread:138925 [jupyter.py:save_ipynb():373] not saving jupyter notebook
+2023-10-31 14:16:24,780 INFO    MainThread:138925 [wandb_init.py:_jupyter_teardown():456] cleaning up jupyter logic
+2023-10-31 14:16:24,780 INFO    MainThread:138925 [wandb_run.py:_atexit_cleanup():2168] got exitcode: 0
+2023-10-31 14:16:24,780 INFO    MainThread:138925 [wandb_run.py:_restore():2151] restore
+2023-10-31 14:16:24,780 INFO    MainThread:138925 [wandb_run.py:_restore():2157] restore done
+2023-10-31 14:16:33,135 INFO    MainThread:138925 [wandb_run.py:_footer_history_summary_info():3599] rendering history
+2023-10-31 14:16:33,135 INFO    MainThread:138925 [wandb_run.py:_footer_history_summary_info():3631] rendering summary
+2023-10-31 14:16:33,146 INFO    MainThread:138925 [wandb_run.py:_footer_sync_info():3558] logging synced files

@@ -26,39 +26,8 @@ import torch.nn as nn
 import numpy as np
 from torch.nn import functional as F
 from torchsummary import summary
-
-
-# class EarlyFusionCNN(nn.Module):
-#     def __init__(self):
-#         super(EarlyFusionCNN, self).__init__()
-        
-#         self.cnn = nn.Sequential(
-#             nn.Conv2d(4, 32, kernel_size=3, stride=1, padding=1),
-#             nn.ReLU(),
-#             nn.MaxPool2d(kernel_size=2, stride=2),
-#             nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1),
-#             nn.ReLU(),
-#             nn.MaxPool2d(kernel_size=2, stride=2),
-#             nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1),
-#             nn.ReLU(),
-#             nn.MaxPool2d(kernel_size=2, stride=2)
-
-#         )
-        
-#         self.fc = nn.Linear(128*6*6, 10)
-
-#     def forward(self, image, audio):
-#         # reshape the image data
-#         image = image.view(-1, 1, 640, 480) # 640, 480 corresponds to the input dimension of the image
-#         # reshape the audio data
-#         audio = audio.view(-1, 1, 1470) # 1470 corresponds to the input dimension of the audio
-#         # Combine the audio and image data along the channel dimension
-#         combined = torch.cat((image, audio), dim=1)
-#         # Pass the combined data through the CNN
-#         features = self.cnn(combined)
-#         features = features.view(features.size(0), -1)
-#         out = self.fc(features)
-#         return out
+from torchvision.models import resnet18, resnet34, resnet50, resnet101, resnet152
+import torchvision.models as models
 
 
 cfg = {
@@ -96,15 +65,69 @@ class VGG(nn.Module):
         return nn.Sequential(*layers)
 
 
+def get_visual_backbone(architecture: str):
+    """
+    Returns the desired visual backbone model.
+    
+    Args:
+    - architecture (str): The name of the desired architecture. (e.g., 'VGG11', 'ResNet50')
+    
+    Returns:
+    - model (nn.Module): The corresponding model.
+    """
+    if "VGG" in architecture:
+        return VGG(architecture)
+    elif "ResNet18" == architecture:
+        return resnet18(pretrained=False)
+    elif "ResNet34" == architecture:
+        return resnet34(pretrained=False)
+    elif "ResNet50" == architecture:
+        return resnet50(pretrained=False)
+    elif "ResNet101" == architecture:
+        return resnet101(pretrained=False)
+    elif "ResNet152" == architecture:
+        return resnet152(pretrained=False)
+    else:
+        raise ValueError(f"Unsupported architecture: {architecture}")
+
+
+class AudioBackbone(nn.Module):
+    def __init__(self, backbone_type, num_classes=4, num_handcrafted_features=None):
+        super(AudioBackbone, self).__init__()
+        
+        # Select the backbone type
+        if backbone_type == "MFCCCNN":
+            self.backbone = MFCCCNN(num_classes=num_classes)
+        elif "VGG" in backbone_type:
+            self.backbone = models.vgg11_bn(pretrained=True) if backbone_type == "VGG11" else models.vgg16_bn(pretrained=True)
+        elif "ResNet" in backbone_type:
+            self.backbone = models.resnet18(pretrained=True) if backbone_type == "ResNet18" else models.resnet50(pretrained=True)
+        elif backbone_type == "Handcrafted":
+            assert num_handcrafted_features is not None, "Specify number of handcrafted features"
+            self.backbone = nn.Sequential(
+                nn.Linear(num_handcrafted_features, 32),
+                nn.ReLU(),
+                nn.Linear(32, 16),
+                nn.ReLU()
+            )
+        
+        # The final classification layers
+        self.fc2 = nn.Linear(16, num_classes)
+
+    def forward(self, x):
+        x = self.backbone(x)
+        logits = self.fc2(x)
+        return logits
+
+
 
 class AudioVisualFusionCNN(nn.Module):
-    def __init__(self, num_classes=4):
+    def __init__(self, visual_backbone='VGG16', num_classes=4):
         super(AudioVisualFusionCNN, self).__init__()
-        # CNN architecture (Vision + Audio)
-        self.image_stream = nn.Sequential(
-            VGG('VGG11')
-        )
 
+        # Using the chosen visual backbone
+        self.image_stream = get_visual_backbone(visual_backbone)
+        
         self.audio_stream = nn.Sequential(
             nn.Conv2d(
                 in_channels=1, out_channels=16, kernel_size=3, stride=1, padding=2
@@ -136,7 +159,8 @@ class AudioVisualFusionCNN(nn.Module):
         )
 
         self.flatten = nn.Flatten()
-         # first element can get via summary; total x output class (laser-off, laser-start, defect-free, cracks, keyhole pores)
+        self.dropout = nn.Dropout(0.5)
+         # first element can get via summary; 
         self.linear = nn.Linear(1280, num_classes) #1280 for 40ms; 1664 for 100ms
         self.softmax = nn.Softmax(dim=1)
 

@@ -53,31 +53,31 @@ class VisionCNN(nn.Module):
         return nn.Sequential(*layers)
 
 class AudioFeatures(nn.Module):
-    def __init__(self):
+    def __init__(self, num_features):
         super(AudioFeatures, self).__init__()
-        # Placeholder for 13 key acoustic features
-        self.features = nn.Linear(13, 13)
+        self.features = nn.Linear(num_features, num_features)
 
     def forward(self, x):
         return self.features(x)
 
 class HybridAudioVisualFusion(nn.Module):
-    def __init__(self):
+    def __init__(self, num_classes=4, num_audio_features=13):
         super(HybridAudioVisualFusion, self).__init__()
         self.vision_cnn = VisionCNN()
-        self.audio_features = AudioFeatures()
+        self.audio_features = AudioFeatures(num_audio_features)
         
-        self.fc1 = nn.Linear(512 + 13, 32) # 512 from VisionCNN and 13 from AudioFeatures
+        self.fc1 = nn.Linear(512 + num_audio_features, 32)
         self.fc2 = nn.Linear(32, 16)
-        self.fc3 = nn.Linear(16, 3) # Output 3 categories
+        self.fc3 = nn.Linear(16, num_classes)
         self.softmax = nn.Softmax(dim=1)
 
     def forward(self, image, audio):
         image_features = self.vision_cnn(image)
         audio_feat = self.audio_features(audio)
-        
+        image_features = image_features.view(image_features.size(0), -1)
+        audio_feat = audio_feat.view(audio_feat.size(0), -1)
         fused = torch.cat((image_features, audio_feat), dim=1)
-        
+    
         x = nn.ReLU()(self.fc1(fused))
         x = nn.ReLU()(self.fc2(x))
         x = self.fc3(x)
@@ -87,10 +87,12 @@ class HybridAudioVisualFusion(nn.Module):
 
 
 if __name__ == "__main__":
-    model = HybridAudioVisualFusion()
+    num_audio_features = 13
+    model = HybridAudioVisualFusion(num_audio_features=num_audio_features)
     image = torch.randn(1, 1, 32, 32)
-    audio = torch.randn(1, 1, 32, 18)  # (32,7) for 40ms, (32,18) for 100 ms
+    audio = torch.randn(1, num_audio_features) 
     predictions = model(image, audio)
-    print (predictions)
-    summary(model.cuda(), [(1, 32, 32), (1, 32, 18)]) # image and audio dual inputs
-    make_dot(predictions.mean(), params=dict(model.named_parameters()))
+    print(predictions)
+    print(model)
+    # summary(model.cuda(), [(1, 32, 32), (num_audio_features,)])
+

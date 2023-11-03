@@ -20,8 +20,6 @@ from torch import nn
 from torchsummary import summary
 import torch.nn.functional as F
 
-
-
 class MFCCCNN(nn.Module):
     def __init__(self, num_classes=4, dropout_rate=0.5):
         super(MFCCCNN, self).__init__()
@@ -52,8 +50,8 @@ class MFCCCNN(nn.Module):
         x = F.relu(self.fc1(x))
         x = self.dropout3(x)
         logits = self.fc2(x)
-        predictions = self.softmax(logits)
-        return predictions
+        # predictions = self.softmax(logits)
+        return logits
 
 
 

@@ -1,0 +1,50 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    python_version: 3.9.16
+    cli_version: 0.15.12
+    framework: lightgbm
+    is_jupyter_run: true
+    is_kaggle_kernel: false
+    start_time: 1698745538.486556
+    t:
+      1:
+      - 1
+      - 5
+      - 6
+      - 8
+      - 41
+      - 53
+      - 55
+      2:
+      - 1
+      - 5
+      - 6
+      - 8
+      - 41
+      - 53
+      - 55
+      3:
+      - 2
+      - 13
+      - 23
+      4: 3.9.16
+      5: 0.15.12
+      8:
+      - 1
+      - 5
+      13: linux-x86_64
+Model:
+  desc: null
+  value: HistGB
+Hyperparameters:
+  desc: null
+  value:
+    learning_rate: 0.23
+    max_iter: 100
+    max_depth: 49
+    min_samples_leaf: 10
+    n_iter_no_change: 10
+    tol: 0.0001

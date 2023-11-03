@@ -1,0 +1,211 @@
+2023-10-31 15:56:08,346 INFO    StreamThr :145916 [internal.py:wandb_internal():86] W&B internal server running at pid: 145916, started at: 2023-10-31 15:56:08.345392
+2023-10-31 15:56:08,349 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: status
+2023-10-31 15:56:08,352 INFO    WriterThread:145916 [datastore.py:open_for_write():85] open: /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_155607-m6bp4a1c/run-m6bp4a1c.wandb
+2023-10-31 15:56:08,353 DEBUG   SenderThread:145916 [sender.py:send():380] send: header
+2023-10-31 15:56:08,353 DEBUG   SenderThread:145916 [sender.py:send():380] send: run
+2023-10-31 15:56:09,339 INFO    SenderThread:145916 [dir_watcher.py:__init__():211] watching files in: /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_155607-m6bp4a1c/files
+2023-10-31 15:56:09,340 INFO    SenderThread:145916 [sender.py:_start_run_threads():1122] run started: m6bp4a1c with start time 1698738967.553801
+2023-10-31 15:56:09,359 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: check_version
+2023-10-31 15:56:09,359 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: check_version
+2023-10-31 15:56:09,477 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: run_start
+2023-10-31 15:56:09,479 DEBUG   HandlerThread:145916 [system_info.py:__init__():32] System info init
+2023-10-31 15:56:09,479 DEBUG   HandlerThread:145916 [system_info.py:__init__():47] System info init done
+2023-10-31 15:56:09,479 INFO    HandlerThread:145916 [system_monitor.py:start():194] Starting system monitor
+2023-10-31 15:56:09,479 INFO    SystemMonitor:145916 [system_monitor.py:_start():158] Starting system asset monitoring threads
+2023-10-31 15:56:09,479 INFO    HandlerThread:145916 [system_monitor.py:probe():214] Collecting system info
+2023-10-31 15:56:09,480 INFO    SystemMonitor:145916 [interfaces.py:start():190] Started cpu monitoring
+2023-10-31 15:56:09,481 INFO    SystemMonitor:145916 [interfaces.py:start():190] Started disk monitoring
+2023-10-31 15:56:09,482 INFO    SystemMonitor:145916 [interfaces.py:start():190] Started gpu monitoring
+2023-10-31 15:56:09,483 INFO    SystemMonitor:145916 [interfaces.py:start():190] Started memory monitoring
+2023-10-31 15:56:09,485 INFO    SystemMonitor:145916 [interfaces.py:start():190] Started network monitoring
+2023-10-31 15:56:09,513 DEBUG   HandlerThread:145916 [system_info.py:probe():196] Probing system
+2023-10-31 15:56:09,515 DEBUG   HandlerThread:145916 [system_info.py:_probe_git():181] Probing git
+2023-10-31 15:56:09,562 DEBUG   HandlerThread:145916 [system_info.py:_probe_git():189] Probing git done
+2023-10-31 15:56:09,563 DEBUG   HandlerThread:145916 [system_info.py:probe():244] Probing system done
+2023-10-31 15:56:09,563 DEBUG   HandlerThread:145916 [system_monitor.py:probe():223] {'os': 'Linux-5.15.0-87-generic-x86_64-with-glibc2.31', 'python': '3.9.16', 'heartbeatAt': '2023-10-31T07:56:09.514130', 'startedAt': '2023-10-31T07:56:07.542532', 'docker': None, 'cuda': None, 'args': (), 'state': 'running', 'program': '4b_ML_ablation.ipynb', 'codePathLocal': '4b_ML_ablation.ipynb', 'root': '/home/chenlequn/GitHub/LDED-FusionNet', 'git': {'remote': 'https://github.com/Davidlequnchen/LDED-FusionNet.git', 'commit': '3149946fe2c56cf2c0faa85c0e4c7039f365fff8'}, 'email': 'chen1189@e.ntu.edu.sg', 'host': 'chenlequn-HP-Z840-Workstation', 'username': 'chenlequn', 'executable': '/home/chenlequn/anaconda3/envs/torch/bin/python3', 'cpu_count': 8, 'cpu_count_logical': 8, 'cpu_freq': {'current': 1391.048875, 'min': 1200.0, 'max': 3500.0}, 'cpu_freq_per_core': [{'current': 1200.0, 'min': 1200.0, 'max': 3500.0}, {'current': 1300.0, 'min': 1200.0, 'max': 3500.0}, {'current': 1200.0, 'min': 1200.0, 'max': 3500.0}, {'current': 1200.0, 'min': 1200.0, 'max': 3500.0}, {'current': 1430.345, 'min': 1200.0, 'max': 3500.0}, {'current': 1200.0, 'min': 1200.0, 'max': 3500.0}, {'current': 2000.0, 'min': 1200.0, 'max': 3500.0}, {'current': 1600.0, 'min': 1200.0, 'max': 3500.0}], 'disk': {'/': {'total': 91.10977554321289, 'used': 22.983963012695312}}, 'gpu': 'NVIDIA GeForce RTX 3090', 'gpu_count': 1, 'gpu_devices': [{'name': 'NVIDIA GeForce RTX 3090', 'memory_total': 25769803776}], 'memory': {'total': 62.797264099121094}}
+2023-10-31 15:56:09,563 INFO    HandlerThread:145916 [system_monitor.py:probe():224] Finished collecting system info
+2023-10-31 15:56:09,563 INFO    HandlerThread:145916 [system_monitor.py:probe():227] Publishing system info
+2023-10-31 15:56:09,563 DEBUG   HandlerThread:145916 [system_info.py:_save_pip():52] Saving list of pip packages installed into the current environment
+2023-10-31 15:56:09,565 DEBUG   HandlerThread:145916 [system_info.py:_save_pip():68] Saving pip packages done
+2023-10-31 15:56:09,565 DEBUG   HandlerThread:145916 [system_info.py:_save_conda():75] Saving list of conda packages installed into the current environment
+2023-10-31 15:56:10,348 INFO    Thread-239:145916 [dir_watcher.py:_on_file_created():271] file/dir created: /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_155607-m6bp4a1c/files/requirements.txt
+2023-10-31 15:56:10,348 INFO    Thread-239:145916 [dir_watcher.py:_on_file_created():271] file/dir created: /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_155607-m6bp4a1c/files/conda-environment.yaml
+2023-10-31 15:56:16,900 DEBUG   HandlerThread:145916 [system_info.py:_save_conda():87] Saving conda packages done
+2023-10-31 15:56:16,901 INFO    HandlerThread:145916 [system_monitor.py:probe():229] Finished publishing system info
+2023-10-31 15:56:16,902 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: status_report
+2023-10-31 15:56:16,902 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: keepalive
+2023-10-31 15:56:16,904 DEBUG   SenderThread:145916 [sender.py:send():380] send: files
+2023-10-31 15:56:16,904 INFO    SenderThread:145916 [sender.py:_save_file():1378] saving file wandb-metadata.json with policy now
+2023-10-31 15:56:16,922 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: stop_status
+2023-10-31 15:56:16,922 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: stop_status
+2023-10-31 15:56:16,924 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: internal_messages
+2023-10-31 15:56:17,274 DEBUG   SenderThread:145916 [sender.py:send():380] send: telemetry
+2023-10-31 15:56:17,274 DEBUG   SenderThread:145916 [sender.py:send():380] send: config
+2023-10-31 15:56:17,345 INFO    Thread-239:145916 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_155607-m6bp4a1c/files/conda-environment.yaml
+2023-10-31 15:56:17,346 INFO    Thread-239:145916 [dir_watcher.py:_on_file_created():271] file/dir created: /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_155607-m6bp4a1c/files/wandb-metadata.json
+2023-10-31 15:56:17,732 INFO    wandb-upload_0:145916 [upload_job.py:push():131] Uploaded file /tmp/tmph_d1ctggwandb/jdkhyzl6-wandb-metadata.json
+2023-10-31 15:56:19,275 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: status_report
+2023-10-31 15:56:24,276 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: status_report
+2023-10-31 15:56:29,276 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: status_report
+2023-10-31 15:56:30,008 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: partial_history
+2023-10-31 15:56:30,010 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: partial_history
+2023-10-31 15:56:30,011 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: partial_history
+2023-10-31 15:56:30,012 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: partial_history
+2023-10-31 15:56:30,013 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: partial_history
+2023-10-31 15:56:30,017 DEBUG   SenderThread:145916 [sender.py:send():380] send: history
+2023-10-31 15:56:30,017 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: summary_record
+2023-10-31 15:56:30,020 INFO    SenderThread:145916 [sender.py:_save_file():1378] saving file wandb-summary.json with policy end
+2023-10-31 15:56:30,021 DEBUG   SenderThread:145916 [sender.py:send():380] send: history
+2023-10-31 15:56:30,021 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: summary_record
+2023-10-31 15:56:30,021 INFO    SenderThread:145916 [sender.py:_save_file():1378] saving file wandb-summary.json with policy end
+2023-10-31 15:56:30,021 DEBUG   SenderThread:145916 [sender.py:send():380] send: history
+2023-10-31 15:56:30,021 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: summary_record
+2023-10-31 15:56:30,024 INFO    SenderThread:145916 [sender.py:_save_file():1378] saving file wandb-summary.json with policy end
+2023-10-31 15:56:30,024 DEBUG   SenderThread:145916 [sender.py:send():380] send: history
+2023-10-31 15:56:30,024 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: summary_record
+2023-10-31 15:56:30,025 INFO    SenderThread:145916 [sender.py:_save_file():1378] saving file wandb-summary.json with policy end
+2023-10-31 15:56:30,025 DEBUG   SenderThread:145916 [sender.py:send():380] send: history
+2023-10-31 15:56:30,025 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: summary_record
+2023-10-31 15:56:30,025 INFO    SenderThread:145916 [sender.py:_save_file():1378] saving file wandb-summary.json with policy end
+2023-10-31 15:56:30,026 DEBUG   SenderThread:145916 [sender.py:send():380] send: telemetry
+2023-10-31 15:56:30,026 DEBUG   SenderThread:145916 [sender.py:send():380] send: exit
+2023-10-31 15:56:30,026 INFO    SenderThread:145916 [sender.py:send_exit():585] handling exit code: 0
+2023-10-31 15:56:30,026 INFO    SenderThread:145916 [sender.py:send_exit():587] handling runtime: 20
+2023-10-31 15:56:30,026 INFO    SenderThread:145916 [sender.py:_save_file():1378] saving file wandb-summary.json with policy end
+2023-10-31 15:56:30,026 INFO    SenderThread:145916 [sender.py:send_exit():593] send defer
+2023-10-31 15:56:30,026 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: defer
+2023-10-31 15:56:30,027 INFO    HandlerThread:145916 [handler.py:handle_request_defer():172] handle defer: 0
+2023-10-31 15:56:30,027 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: defer
+2023-10-31 15:56:30,027 INFO    SenderThread:145916 [sender.py:send_request_defer():609] handle sender defer: 0
+2023-10-31 15:56:30,027 INFO    SenderThread:145916 [sender.py:transition_state():613] send defer: 1
+2023-10-31 15:56:30,027 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: defer
+2023-10-31 15:56:30,027 INFO    HandlerThread:145916 [handler.py:handle_request_defer():172] handle defer: 1
+2023-10-31 15:56:30,027 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: defer
+2023-10-31 15:56:30,027 INFO    SenderThread:145916 [sender.py:send_request_defer():609] handle sender defer: 1
+2023-10-31 15:56:30,027 INFO    SenderThread:145916 [sender.py:transition_state():613] send defer: 2
+2023-10-31 15:56:30,027 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: defer
+2023-10-31 15:56:30,028 INFO    HandlerThread:145916 [handler.py:handle_request_defer():172] handle defer: 2
+2023-10-31 15:56:30,028 INFO    HandlerThread:145916 [system_monitor.py:finish():203] Stopping system monitor
+2023-10-31 15:56:30,028 DEBUG   SystemMonitor:145916 [system_monitor.py:_start():172] Starting system metrics aggregation loop
+2023-10-31 15:56:30,028 DEBUG   SystemMonitor:145916 [system_monitor.py:_start():179] Finished system metrics aggregation loop
+2023-10-31 15:56:30,037 DEBUG   SystemMonitor:145916 [system_monitor.py:_start():183] Publishing last batch of metrics
+2023-10-31 15:56:30,037 INFO    HandlerThread:145916 [interfaces.py:finish():202] Joined cpu monitor
+2023-10-31 15:56:30,038 INFO    HandlerThread:145916 [interfaces.py:finish():202] Joined disk monitor
+2023-10-31 15:56:30,124 INFO    HandlerThread:145916 [interfaces.py:finish():202] Joined gpu monitor
+2023-10-31 15:56:30,124 INFO    HandlerThread:145916 [interfaces.py:finish():202] Joined memory monitor
+2023-10-31 15:56:30,125 INFO    HandlerThread:145916 [interfaces.py:finish():202] Joined network monitor
+2023-10-31 15:56:30,126 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: defer
+2023-10-31 15:56:30,126 INFO    SenderThread:145916 [sender.py:send_request_defer():609] handle sender defer: 2
+2023-10-31 15:56:30,126 INFO    SenderThread:145916 [sender.py:transition_state():613] send defer: 3
+2023-10-31 15:56:30,126 DEBUG   SenderThread:145916 [sender.py:send():380] send: stats
+2023-10-31 15:56:30,126 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: defer
+2023-10-31 15:56:30,127 INFO    HandlerThread:145916 [handler.py:handle_request_defer():172] handle defer: 3
+2023-10-31 15:56:30,127 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: defer
+2023-10-31 15:56:30,127 INFO    SenderThread:145916 [sender.py:send_request_defer():609] handle sender defer: 3
+2023-10-31 15:56:30,127 INFO    SenderThread:145916 [sender.py:transition_state():613] send defer: 4
+2023-10-31 15:56:30,127 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: defer
+2023-10-31 15:56:30,127 INFO    HandlerThread:145916 [handler.py:handle_request_defer():172] handle defer: 4
+2023-10-31 15:56:30,128 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: defer
+2023-10-31 15:56:30,128 INFO    SenderThread:145916 [sender.py:send_request_defer():609] handle sender defer: 4
+2023-10-31 15:56:30,128 INFO    SenderThread:145916 [sender.py:transition_state():613] send defer: 5
+2023-10-31 15:56:30,128 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: defer
+2023-10-31 15:56:30,128 INFO    HandlerThread:145916 [handler.py:handle_request_defer():172] handle defer: 5
+2023-10-31 15:56:30,128 DEBUG   SenderThread:145916 [sender.py:send():380] send: summary
+2023-10-31 15:56:30,129 INFO    SenderThread:145916 [sender.py:_save_file():1378] saving file wandb-summary.json with policy end
+2023-10-31 15:56:30,129 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: defer
+2023-10-31 15:56:30,129 INFO    SenderThread:145916 [sender.py:send_request_defer():609] handle sender defer: 5
+2023-10-31 15:56:30,129 INFO    SenderThread:145916 [sender.py:transition_state():613] send defer: 6
+2023-10-31 15:56:30,129 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: defer
+2023-10-31 15:56:30,129 INFO    HandlerThread:145916 [handler.py:handle_request_defer():172] handle defer: 6
+2023-10-31 15:56:30,130 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: defer
+2023-10-31 15:56:30,130 INFO    SenderThread:145916 [sender.py:send_request_defer():609] handle sender defer: 6
+2023-10-31 15:56:30,135 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: status_report
+2023-10-31 15:56:30,349 INFO    Thread-239:145916 [dir_watcher.py:_on_file_created():271] file/dir created: /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_155607-m6bp4a1c/files/wandb-summary.json
+2023-10-31 15:56:30,350 INFO    Thread-239:145916 [dir_watcher.py:_on_file_created():271] file/dir created: /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_155607-m6bp4a1c/files/output.log
+2023-10-31 15:56:30,505 INFO    SenderThread:145916 [sender.py:transition_state():613] send defer: 7
+2023-10-31 15:56:30,505 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: defer
+2023-10-31 15:56:30,505 INFO    HandlerThread:145916 [handler.py:handle_request_defer():172] handle defer: 7
+2023-10-31 15:56:30,506 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: defer
+2023-10-31 15:56:30,506 INFO    SenderThread:145916 [sender.py:send_request_defer():609] handle sender defer: 7
+2023-10-31 15:56:31,021 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: poll_exit
+2023-10-31 15:56:31,350 INFO    Thread-239:145916 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_155607-m6bp4a1c/files/config.yaml
+2023-10-31 15:56:32,024 INFO    SenderThread:145916 [sender.py:transition_state():613] send defer: 8
+2023-10-31 15:56:32,024 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: poll_exit
+2023-10-31 15:56:32,025 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: defer
+2023-10-31 15:56:32,025 INFO    HandlerThread:145916 [handler.py:handle_request_defer():172] handle defer: 8
+2023-10-31 15:56:32,026 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: defer
+2023-10-31 15:56:32,026 INFO    SenderThread:145916 [sender.py:send_request_defer():609] handle sender defer: 8
+2023-10-31 15:56:32,026 INFO    SenderThread:145916 [job_builder.py:build():281] Attempting to build job artifact
+2023-10-31 15:56:32,027 INFO    SenderThread:145916 [job_builder.py:_get_source_type():393] is repo sourced job
+2023-10-31 15:56:32,027 INFO    SenderThread:145916 [job_builder.py:_get_program_relpath():411] run is notebook based run
+2023-10-31 15:56:32,029 INFO    SenderThread:145916 [job_builder.py:build():369] adding wandb-job metadata file
+2023-10-31 15:56:32,040 INFO    SenderThread:145916 [sender.py:transition_state():613] send defer: 9
+2023-10-31 15:56:32,040 DEBUG   SenderThread:145916 [sender.py:send():380] send: artifact
+2023-10-31 15:56:32,040 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: defer
+2023-10-31 15:56:32,043 INFO    HandlerThread:145916 [handler.py:handle_request_defer():172] handle defer: 9
+2023-10-31 15:56:32,350 INFO    Thread-239:145916 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_155607-m6bp4a1c/files/output.log
+2023-10-31 15:56:33,406 INFO    SenderThread:145916 [sender.py:send_artifact():1456] sent artifact job-https___github.com_Davidlequnchen_LDED-FusionNet.git_4b_ML_ablation.ipynb - {'id': 'QXJ0aWZhY3Q6NjIzMDYyNjI4', 'state': 'COMMITTED', 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjExMTQ1OTc4Ng==', 'latestArtifact': {'id': 'QXJ0aWZhY3Q6NjIzMDY2MzQ2', 'versionIndex': 10}}}
+2023-10-31 15:56:33,406 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: defer
+2023-10-31 15:56:33,406 INFO    SenderThread:145916 [sender.py:send_request_defer():609] handle sender defer: 9
+2023-10-31 15:56:33,406 INFO    SenderThread:145916 [dir_watcher.py:finish():358] shutting down directory watcher
+2023-10-31 15:56:34,352 INFO    SenderThread:145916 [dir_watcher.py:finish():388] scan: /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_155607-m6bp4a1c/files
+2023-10-31 15:56:34,352 INFO    SenderThread:145916 [dir_watcher.py:finish():402] scan save: /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_155607-m6bp4a1c/files/config.yaml config.yaml
+2023-10-31 15:56:34,356 INFO    SenderThread:145916 [dir_watcher.py:finish():402] scan save: /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_155607-m6bp4a1c/files/wandb-summary.json wandb-summary.json
+2023-10-31 15:56:34,356 INFO    SenderThread:145916 [dir_watcher.py:finish():402] scan save: /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_155607-m6bp4a1c/files/requirements.txt requirements.txt
+2023-10-31 15:56:34,364 INFO    SenderThread:145916 [dir_watcher.py:finish():402] scan save: /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_155607-m6bp4a1c/files/output.log output.log
+2023-10-31 15:56:34,364 INFO    SenderThread:145916 [dir_watcher.py:finish():402] scan save: /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_155607-m6bp4a1c/files/conda-environment.yaml conda-environment.yaml
+2023-10-31 15:56:34,374 INFO    SenderThread:145916 [dir_watcher.py:finish():402] scan save: /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_155607-m6bp4a1c/files/wandb-metadata.json wandb-metadata.json
+2023-10-31 15:56:34,374 INFO    SenderThread:145916 [sender.py:transition_state():613] send defer: 10
+2023-10-31 15:56:34,378 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: defer
+2023-10-31 15:56:34,378 INFO    HandlerThread:145916 [handler.py:handle_request_defer():172] handle defer: 10
+2023-10-31 15:56:34,379 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: defer
+2023-10-31 15:56:34,379 INFO    SenderThread:145916 [sender.py:send_request_defer():609] handle sender defer: 10
+2023-10-31 15:56:34,379 INFO    SenderThread:145916 [file_pusher.py:finish():175] shutting down file pusher
+2023-10-31 15:56:34,950 INFO    wandb-upload_1:145916 [upload_job.py:push():131] Uploaded file /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_155607-m6bp4a1c/files/config.yaml
+2023-10-31 15:56:36,022 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: keepalive
+2023-10-31 15:56:39,380 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: status_report
+2023-10-31 15:56:40,124 INFO    wandb-upload_2:145916 [upload_job.py:push():131] Uploaded file /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_155607-m6bp4a1c/files/requirements.txt
+2023-10-31 15:56:40,125 INFO    wandb-upload_0:145916 [upload_job.py:push():131] Uploaded file /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_155607-m6bp4a1c/files/wandb-summary.json
+2023-10-31 15:56:40,126 INFO    wandb-upload_3:145916 [upload_job.py:push():131] Uploaded file /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_155607-m6bp4a1c/files/output.log
+2023-10-31 15:56:40,127 INFO    wandb-upload_4:145916 [upload_job.py:push():131] Uploaded file /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_155607-m6bp4a1c/files/conda-environment.yaml
+2023-10-31 15:56:40,328 INFO    Thread-238:145916 [sender.py:transition_state():613] send defer: 11
+2023-10-31 15:56:40,339 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: defer
+2023-10-31 15:56:40,339 INFO    HandlerThread:145916 [handler.py:handle_request_defer():172] handle defer: 11
+2023-10-31 15:56:40,340 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: defer
+2023-10-31 15:56:40,340 INFO    SenderThread:145916 [sender.py:send_request_defer():609] handle sender defer: 11
+2023-10-31 15:56:40,340 INFO    SenderThread:145916 [file_pusher.py:join():181] waiting for file pusher
+2023-10-31 15:56:40,340 INFO    SenderThread:145916 [sender.py:transition_state():613] send defer: 12
+2023-10-31 15:56:40,341 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: defer
+2023-10-31 15:56:40,341 INFO    HandlerThread:145916 [handler.py:handle_request_defer():172] handle defer: 12
+2023-10-31 15:56:40,341 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: defer
+2023-10-31 15:56:40,341 INFO    SenderThread:145916 [sender.py:send_request_defer():609] handle sender defer: 12
+2023-10-31 15:56:40,341 INFO    SenderThread:145916 [file_stream.py:finish():595] file stream finish called
+2023-10-31 15:56:41,024 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: keepalive
+2023-10-31 15:56:41,264 INFO    SenderThread:145916 [file_stream.py:finish():599] file stream finish is done
+2023-10-31 15:56:41,265 INFO    SenderThread:145916 [sender.py:transition_state():613] send defer: 13
+2023-10-31 15:56:41,265 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: defer
+2023-10-31 15:56:41,265 INFO    HandlerThread:145916 [handler.py:handle_request_defer():172] handle defer: 13
+2023-10-31 15:56:41,266 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: defer
+2023-10-31 15:56:41,266 INFO    SenderThread:145916 [sender.py:send_request_defer():609] handle sender defer: 13
+2023-10-31 15:56:41,266 INFO    SenderThread:145916 [sender.py:transition_state():613] send defer: 14
+2023-10-31 15:56:41,267 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: defer
+2023-10-31 15:56:41,268 DEBUG   SenderThread:145916 [sender.py:send():380] send: final
+2023-10-31 15:56:41,268 INFO    HandlerThread:145916 [handler.py:handle_request_defer():172] handle defer: 14
+2023-10-31 15:56:41,268 DEBUG   SenderThread:145916 [sender.py:send():380] send: footer
+2023-10-31 15:56:41,269 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: defer
+2023-10-31 15:56:41,269 INFO    SenderThread:145916 [sender.py:send_request_defer():609] handle sender defer: 14
+2023-10-31 15:56:41,270 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: internal_messages
+2023-10-31 15:56:41,272 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: poll_exit
+2023-10-31 15:56:41,272 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: poll_exit
+2023-10-31 15:56:41,273 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: server_info
+2023-10-31 15:56:41,273 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: get_summary
+2023-10-31 15:56:41,274 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: sampled_history
+2023-10-31 15:56:41,274 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: job_info
+2023-10-31 15:56:41,275 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: server_info
+2023-10-31 15:56:41,509 DEBUG   SenderThread:145916 [sender.py:send_request():407] send_request: job_info
+2023-10-31 15:56:41,511 DEBUG   HandlerThread:145916 [handler.py:handle_request():146] handle_request: shutdown
+2023-10-31 15:56:41,511 INFO    HandlerThread:145916 [handler.py:finish():866] shutting down handler
+2023-10-31 15:56:42,275 INFO    WriterThread:145916 [datastore.py:close():294] close: /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_155607-m6bp4a1c/run-m6bp4a1c.wandb
+2023-10-31 15:56:42,509 INFO    SenderThread:145916 [sender.py:finish():1534] shutting down sender
+2023-10-31 15:56:42,510 INFO    SenderThread:145916 [file_pusher.py:finish():175] shutting down file pusher
+2023-10-31 15:56:42,510 INFO    SenderThread:145916 [file_pusher.py:join():181] waiting for file pusher

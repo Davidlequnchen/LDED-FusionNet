@@ -1,0 +1,67 @@
+2023-10-31 15:37:17,195 INFO    MainThread:145300 [wandb_setup.py:_flush():76] Current SDK version is 0.15.12
+2023-10-31 15:37:17,195 INFO    MainThread:145300 [wandb_setup.py:_flush():76] Configure stats pid to 145300
+2023-10-31 15:37:17,196 INFO    MainThread:145300 [wandb_setup.py:_flush():76] Loading settings from /home/chenlequn/.config/wandb/settings
+2023-10-31 15:37:17,196 INFO    MainThread:145300 [wandb_setup.py:_flush():76] Loading settings from /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/settings
+2023-10-31 15:37:17,196 INFO    MainThread:145300 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2023-10-31 15:37:17,196 INFO    MainThread:145300 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2023-10-31 15:37:17,196 INFO    MainThread:145300 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2023-10-31 15:37:17,196 INFO    MainThread:145300 [wandb_init.py:_log_setup():528] Logging user logs to /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_153717-4iazc74j/logs/debug.log
+2023-10-31 15:37:17,196 INFO    MainThread:145300 [wandb_init.py:_log_setup():529] Logging internal logs to /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_153717-4iazc74j/logs/debug-internal.log
+2023-10-31 15:37:17,196 INFO    MainThread:145300 [wandb_init.py:_jupyter_setup():474] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x7f00997a86d0>
+2023-10-31 15:37:17,196 INFO    MainThread:145300 [wandb_init.py:init():568] calling init triggers
+2023-10-31 15:37:17,197 INFO    MainThread:145300 [wandb_init.py:init():575] wandb.init called with sweep_config: {}
+config: {}
+2023-10-31 15:37:17,197 INFO    MainThread:145300 [wandb_init.py:init():618] starting backend
+2023-10-31 15:37:17,197 INFO    MainThread:145300 [wandb_init.py:init():622] setting up manager
+2023-10-31 15:37:17,198 INFO    MainThread:145300 [backend.py:_multiprocessing_setup():105] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2023-10-31 15:37:17,199 INFO    MainThread:145300 [wandb_init.py:init():628] backend started and connected
+2023-10-31 15:37:17,220 INFO    MainThread:145300 [wandb_run.py:_label_probe_notebook():1276] probe notebook
+2023-10-31 15:37:17,221 INFO    MainThread:145300 [wandb_init.py:init():720] updated telemetry
+2023-10-31 15:37:17,267 INFO    MainThread:145300 [wandb_init.py:init():753] communicating run to backend with 90.0 second timeout
+2023-10-31 15:37:17,331 WARNING MainThread:145300 [wandb_init.py:init():1192] interrupted
+Traceback (most recent call last):
+  File "/home/chenlequn/anaconda3/envs/torch/lib/python3.9/site-packages/wandb/sdk/wandb_init.py", line 1170, in init
+    run = wi.init()
+  File "/home/chenlequn/anaconda3/envs/torch/lib/python3.9/site-packages/wandb/sdk/wandb_init.py", line 756, in init
+    result = run_init_handle.wait(
+  File "/home/chenlequn/anaconda3/envs/torch/lib/python3.9/site-packages/wandb/sdk/lib/mailbox.py", line 283, in wait
+    found, abandoned = self._slot._get_and_clear(timeout=wait_timeout)
+  File "/home/chenlequn/anaconda3/envs/torch/lib/python3.9/site-packages/wandb/sdk/lib/mailbox.py", line 130, in _get_and_clear
+    if self._wait(timeout=timeout):
+  File "/home/chenlequn/anaconda3/envs/torch/lib/python3.9/site-packages/wandb/sdk/lib/mailbox.py", line 126, in _wait
+    return self._event.wait(timeout=timeout)
+  File "/home/chenlequn/anaconda3/envs/torch/lib/python3.9/threading.py", line 581, in wait
+    signaled = self._cond.wait(timeout)
+  File "/home/chenlequn/anaconda3/envs/torch/lib/python3.9/threading.py", line 316, in wait
+    gotit = waiter.acquire(True, timeout)
+KeyboardInterrupt
+2023-10-31 15:37:33,355 INFO    MainThread:145300 [wandb_setup.py:_flush():76] Current SDK version is 0.15.12
+2023-10-31 15:37:33,355 INFO    MainThread:145300 [wandb_setup.py:_flush():76] Configure stats pid to 145300
+2023-10-31 15:37:33,355 INFO    MainThread:145300 [wandb_setup.py:_flush():76] Loading settings from /home/chenlequn/.config/wandb/settings
+2023-10-31 15:37:33,355 INFO    MainThread:145300 [wandb_setup.py:_flush():76] Loading settings from /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/settings
+2023-10-31 15:37:33,355 INFO    MainThread:145300 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2023-10-31 15:37:33,355 INFO    MainThread:145300 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2023-10-31 15:37:33,356 INFO    MainThread:145300 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2023-10-31 15:37:33,358 INFO    MainThread:145300 [wandb_init.py:_log_setup():528] Logging user logs to /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_153733-up0nbr57/logs/debug.log
+2023-10-31 15:37:33,358 INFO    MainThread:145300 [wandb_init.py:_log_setup():529] Logging internal logs to /home/chenlequn/GitHub/LDED-FusionNet/code/wandb/run-20231031_153733-up0nbr57/logs/debug-internal.log
+2023-10-31 15:37:33,358 INFO    MainThread:145300 [wandb_init.py:init():568] calling init triggers
+2023-10-31 15:37:33,358 INFO    MainThread:145300 [wandb_init.py:init():575] wandb.init called with sweep_config: {}
+config: {}
+2023-10-31 15:37:33,358 INFO    MainThread:145300 [wandb_init.py:init():618] starting backend
+2023-10-31 15:37:33,358 INFO    MainThread:145300 [wandb_init.py:init():622] setting up manager
+2023-10-31 15:37:33,360 INFO    MainThread:145300 [backend.py:_multiprocessing_setup():105] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2023-10-31 15:37:33,361 INFO    MainThread:145300 [wandb_init.py:init():628] backend started and connected
+2023-10-31 15:37:33,373 INFO    MainThread:145300 [wandb_run.py:_label_probe_notebook():1276] probe notebook
+2023-10-31 15:37:33,374 INFO    MainThread:145300 [wandb_init.py:init():720] updated telemetry
+2023-10-31 15:37:33,423 INFO    MainThread:145300 [wandb_init.py:init():753] communicating run to backend with 90.0 second timeout
+2023-10-31 15:39:03,520 ERROR   MainThread:145300 [wandb_init.py:init():779] encountered error: Run initialization has timed out after 90.0 sec. 
+Please refer to the documentation for additional information: https://docs.wandb.ai/guides/track/tracking-faq#initstarterror-error-communicating-with-wandb-process-
+2023-10-31 15:39:03,615 ERROR   MainThread:145300 [wandb_init.py:init():1188] Run initialization has timed out after 90.0 sec. 
+Please refer to the documentation for additional information: https://docs.wandb.ai/guides/track/tracking-faq#initstarterror-error-communicating-with-wandb-process-
+Traceback (most recent call last):
+  File "/home/chenlequn/anaconda3/envs/torch/lib/python3.9/site-packages/wandb/sdk/wandb_init.py", line 1170, in init
+    run = wi.init()
+  File "/home/chenlequn/anaconda3/envs/torch/lib/python3.9/site-packages/wandb/sdk/wandb_init.py", line 785, in init
+    raise error
+wandb.errors.CommError: Run initialization has timed out after 90.0 sec. 
+Please refer to the documentation for additional information: https://docs.wandb.ai/guides/track/tracking-faq#initstarterror-error-communicating-with-wandb-process-

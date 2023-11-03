@@ -1,0 +1,54 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    python_version: 3.9.16
+    cli_version: 0.15.12
+    framework: lightgbm
+    is_jupyter_run: true
+    is_kaggle_kernel: false
+    start_time: 1698739421.141374
+    t:
+      1:
+      - 1
+      - 5
+      - 6
+      - 8
+      - 41
+      - 53
+      - 55
+      2:
+      - 1
+      - 5
+      - 6
+      - 8
+      - 41
+      - 53
+      - 55
+      3:
+      - 2
+      - 13
+      - 23
+      4: 3.9.16
+      5: 0.15.12
+      8:
+      - 1
+      - 5
+      13: linux-x86_64
+Model:
+  desc: null
+  value: LightGBM
+Hyperparameters:
+  desc: null
+  value:
+    colsample_bytree: 0.8
+    learning_rate: 0.15
+    max_depth: 35
+    min_child_weight: 1
+    n_estimators: 276
+    num_leaves: 120
+    reg_alpha: 1.94
+    reg_lambda: 1.7
+    subsample: 0.86
+    verbose: -1
