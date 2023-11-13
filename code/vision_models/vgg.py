@@ -39,7 +39,7 @@ class VGG(nn.Module):
 
 
 def test():
-    net = VGG('VGG11', num_class=3)
+    net = VGG('VGG19', num_class=3)
     print (net)
     # vision
     summary(net.cuda(), [(1, 32, 32)]) # image set
