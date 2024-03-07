@@ -1,3 +1,0 @@
-class weights: [1.20237469 1.83114606 1.472173   0.51468435]
-class weights encoded: [1.20237469 1.83114606 1.472173   0.51468435]
-class        : ['Defect-free', 'Keyhole pores', 'Laser defocus', 'Laser-off']

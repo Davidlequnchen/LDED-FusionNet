@@ -1,8 +1,0 @@
-Traceback (most recent call last):
-  File "/tmp/ipykernel_145850/227182483.py", line 35, in <module>
-    model.fit(X_train_sampled, y_train_sampled)
-  File "/home/chenlequn/anaconda3/envs/torch/lib/python3.9/site-packages/sklearn/svm/_base.py", line 252, in fit
-    fit(X, y, sample_weight, solver_type, kernel, random_seed=seed)
-  File "/home/chenlequn/anaconda3/envs/torch/lib/python3.9/site-packages/sklearn/svm/_base.py", line 331, in _dense_fit
-    ) = libsvm.fit(
-KeyboardInterrupt

@@ -1,7 +1,0 @@
-/home/chenlequn/anaconda3/envs/torch/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
-  _warn_prf(average, modifier, msg_start, len(result))
-		Accuracy: Mean = 0.9466666666666667, Std = 0.04988876515698587
-		F1 Score: Mean = 0.940952380952381, Std = 0.052648666518420005
-		Precision: Mean = 0.9433333333333334, Std = 0.057348835113617505
-		Recall: Mean = 0.9466666666666667, Std = 0.04988876515698587
-		ROC-AUC: Mean = 0.9975555555555555, Std = 0.004888888888888898

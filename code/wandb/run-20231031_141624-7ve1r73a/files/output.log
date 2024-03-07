@@ -1,9 +1,0 @@
-		Accuracy: Mean = 0.7047619047619047, Std = 0.29292488569961334
-		F1 Score: Mean = 0.6782427637721755, Std = 0.32951329287315084
-		Precision: Mean = 0.7043809523809523, Std = 0.3450892304484876
-		Recall: Mean = 0.7047619047619047, Std = 0.29292488569961334
-		ROC-AUC: Mean = 0.9696471306471306, Std = 0.030453313162912544
-/home/chenlequn/anaconda3/envs/torch/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
-  _warn_prf(average, modifier, msg_start, len(result))
-/home/chenlequn/anaconda3/envs/torch/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
-  _warn_prf(average, modifier, msg_start, len(result))

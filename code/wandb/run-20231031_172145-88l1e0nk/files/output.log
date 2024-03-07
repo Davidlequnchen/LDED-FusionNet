@@ -1,9 +1,0 @@
-/home/chenlequn/anaconda3/envs/torch/lib/python3.9/site-packages/imblearn/ensemble/_forest.py:546: FutureWarning: The default of `sampling_strategy` will change from `'auto'` to `'all'` in version 0.13. This change will follow the implementation proposed in the original paper. Set to `'all'` to silence this warning and adopt the future behaviour.
-  warn(
-/home/chenlequn/anaconda3/envs/torch/lib/python3.9/site-packages/imblearn/ensemble/_forest.py:558: FutureWarning: The default of `replacement` will change from `False` to `True` in version 0.13. This change will follow the implementation proposed in the original paper. Set to `True` to silence this warning and adopt the future behaviour.
-  warn(
-		Accuracy: Mean = 0.9204043416832993, Std = 0.010364117227208787
-		F1 Score: Mean = 0.9209536757239537, Std = 0.010215184011572254
-		Precision: Mean = 0.9220091682450281, Std = 0.0100995040755372
-		Recall: Mean = 0.9204043416832993, Std = 0.010364117227208787
-		ROC-AUC: Mean = 0.9910655449204155, Std = 0.0021169171097255644
