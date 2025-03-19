@@ -3,19 +3,6 @@
 ## Overview
 This repository contains the implementation for **multisensor fusion-based digital twin modeling** in **Laser-Directed Energy Deposition (LDED)**. The approach integrates **audio-visual feature extraction** and **machine learning (ML) models** to predict localized quality in **robotic LDED**.
 
-### **Related Publications**
-
-1. **Multisensor Fusion-Based Digital Twin for Localized Quality Prediction in Robotic Laser-Directed Energy Deposition**
-   - Published in *Robotics and Computer-Integrated Manufacturing (RCIM), 2023*
-   - DOI: [https://www.sciencedirect.com/science/article/abs/pii/S0736584523000571](https://www.sciencedirect.com/science/article/abs/pii/S0736584523000571)
-   - Proposes a **Multisensor Fusion-Based Digital Twin**, leveraging **feature-level fusion** of **acoustic and visual data** for LDED quality prediction.
-
-2. **In-situ Defect Detection in Laser-Directed Energy Deposition with Machine Learning and Multi-Sensor Fusion**
-   - Published in *Journal of Mechanical Science and Technology (JMST), 2024*
-   - DOI: [https://link.springer.com/article/10.1007/s12206-024-2401-1](https://link.springer.com/article/10.1007/s12206-024-2401-1)
-   - Explores **audio-visual feature correlations**, analyzing **acoustic signals across multiple domains** and **coaxial melt pool images** to train ML models. 
-   - Introduces **intra-modality and cross-modality correlation analysis**, identifying key **acoustic and vision-based signatures** in LDED process dynamics.
-
 ### **Visual Summary**
 #### **Multisensor Fusion-Based Digital Twin Framework**
 <div align="center">
@@ -35,6 +22,21 @@ This repository contains the implementation for **multisensor fusion-based digit
     </td>
   </tr>
 </table>
+
+
+### **Related Publications**
+
+1. **Multisensor Fusion-Based Digital Twin for Localized Quality Prediction in Robotic Laser-Directed Energy Deposition**
+   - Published in *Robotics and Computer-Integrated Manufacturing (RCIM), 2023*
+   - DOI: [https://www.sciencedirect.com/science/article/abs/pii/S0736584523000571](https://www.sciencedirect.com/science/article/abs/pii/S0736584523000571)
+   - Proposes a **Multisensor Fusion-Based Digital Twin**, leveraging **feature-level fusion** of **acoustic and visual data** for LDED quality prediction.
+
+2. **In-situ Defect Detection in Laser-Directed Energy Deposition with Machine Learning and Multi-Sensor Fusion**
+   - Published in *Journal of Mechanical Science and Technology (JMST), 2024*
+   - DOI: [https://link.springer.com/article/10.1007/s12206-024-2401-1](https://link.springer.com/article/10.1007/s12206-024-2401-1)
+   - Explores **audio-visual feature correlations**, analyzing **acoustic signals across multiple domains** and **coaxial melt pool images** to train ML models. 
+   - Introduces **intra-modality and cross-modality correlation analysis**, identifying key **acoustic and vision-based signatures** in LDED process dynamics.
+
 
 ### **Repository Upgrade**
 This repository is an **updated version** of the previous repository:
