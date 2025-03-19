@@ -23,6 +23,7 @@ This repository contains the implementation for **multisensor fusion-based digit
 </table>
 
 
+
 ### **Related Publications**
 
 1. **Multisensor Fusion-Based Digital Twin for Localized Quality Prediction in Robotic Laser-Directed Energy Deposition**
@@ -35,6 +36,15 @@ This repository contains the implementation for **multisensor fusion-based digit
    - DOI: [https://link.springer.com/article/10.1007/s12206-024-2401-1](https://link.springer.com/article/10.1007/s12206-024-2401-1)
    - Explores **audio-visual feature correlations**, analyzing **acoustic signals across multiple domains** and **coaxial melt pool images** to train ML models. 
    - Introduces **intra-modality and cross-modality correlation analysis**, identifying key **acoustic and vision-based signatures** in LDED process dynamics.
+
+3. **Inference of Melt Pool Visual Characteristics in Laser Additive Manufacturing Using Acoustic Signal Features and Robotic Motion Data**
+   - Published in *ICCAR 2024*
+   - DOI: [https://ieeexplore.ieee.org/abstract/document/10569391](https://ieeexplore.ieee.org/abstract/document/10569391)
+   - Proposes a novel technique to **infer melt pool visual characteristics** in LAM by combining **acoustic signal features** with **robotic tool-center-point (TCP) motion data**.
+   - Demonstrates that **acoustic + TCP motion data fusion** achieves an **R² score above 0.7**, outperforming acoustic-only models.
+   - Highlights the potential of **microphone-based monitoring** as a **cost-effective alternative** for **melt pool tracking and closed-loop control** in LAM
+
+
 
 
 ### **Repository Upgrade**
