@@ -131,5 +131,3 @@ If you use this repository, please cite the following papers:
 ## License
 This repository is released under the MIT License.
 
-## Contact
-For any inquiries or collaboration, please reach out to **Lequn Chen** at [your.email@example.com].
