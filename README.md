@@ -1,5 +1,4 @@
-# Multisensor Fusion-Based Digital Twin for Laser-Directed Energy Deposition
-
+# LDED-FusionNet: Machine Learning-Based Audio-Visual Defect Detection for LDED AM Process
 ## Overview
 This repository contains the implementation for **multisensor fusion-based digital twin modeling** in **Laser-Directed Energy Deposition (LDED)**. The approach integrates **audio-visual feature extraction** and **machine learning (ML) models** to predict localized quality in **robotic LDED**.
 
