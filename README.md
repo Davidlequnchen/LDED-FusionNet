@@ -1,7 +1,11 @@
 # LDED-FusionNet: Audio-Visual Fusion for Defect Detection in Laser-Directed Energy Deposition (LDED)
 
+[![Dataset](https://img.shields.io/badge/LDEDFusionNet-Dataset-green)](https://zenodo.org/records/15050300)
+
 ## Overview
 This repository contains the implementation of **audio-visual feature fusion** using machine learning for defect detection and quality prediction in **Laser-Directed Energy Deposition (LDED)** additive manufacturing processes.
+
+**LDED-FusionNet Dataset Download**: https://zenodo.org/records/15050300
 
 #### Experimental Setup and Schematic Representation
 <table align="center" style="border:none;">
