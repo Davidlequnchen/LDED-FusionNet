@@ -44,12 +44,12 @@ This repository contains the implementation of **audio-visual feature fusion** u
 
 ---
 
-### **Repository Upgrade**
+<!-- ### **Repository Upgrade**
 This repository is an **updated version** of the previous repository:
 🔗 [LDED-Multisensor-Fusion](https://github.com/Davidlequnchen/LDED-multisensor-fusion), which originally supported the RCIM paper. Key improvements include:
 - **Essentia-based Acoustic Feature Extraction**: Replaces `librosa` with `Essentia`, which is more systematic, efficient, and suitable for **production ML algorithms**.
 - **Expanded Cross-Modality Analysis**: Provides an in-depth understanding of **audio-visual feature correlation**, along with additional **ablation studies** to analyze feature effectiveness.
-- **Excludes Virtual Quality Map Construction**: Unlike the previous repository, this code **does not include spatial registration of robot motion into multisensor features** or ML predictions. The **visualization and virtual quality map construction** remain in the **older repository**: 🔗 [LDED-Multisensor-Fusion](https://github.com/Davidlequnchen/LDED-multisensor-fusion).
+- **Excludes Virtual Quality Map Construction**: Unlike the previous repository, this code **does not include spatial registration of robot motion into multisensor features** or ML predictions. The **visualization and virtual quality map construction** remain in the **older repository**: 🔗 [LDED-Multisensor-Fusion](https://github.com/Davidlequnchen/LDED-multisensor-fusion). -->
 
 ## Related Code
 
